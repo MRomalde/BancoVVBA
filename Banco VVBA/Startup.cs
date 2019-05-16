@@ -32,7 +32,7 @@ namespace Banco_VVBA
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=BancoVVBA;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=tcp:bancovvbaserver.database.windows.net,1433;Initial Catalog=BancoVVBADataBase;Persist Security Info=False;User ID=mromalde;Password=Everis2019;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             services.AddDbContext<BancoVVBAContext>
                 (options => options.UseSqlServer(connection));
 

@@ -1,0 +1,14 @@
+C:\Users\mromalde\Desktop\BancoVVBA\Banco VVBA\bin\Release\netcoreapp2.2\Banco VVBA.deps.json
+C:\Users\mromalde\Desktop\BancoVVBA\Banco VVBA\bin\Release\netcoreapp2.2\Banco VVBA.runtimeconfig.json
+C:\Users\mromalde\Desktop\BancoVVBA\Banco VVBA\bin\Release\netcoreapp2.2\Banco VVBA.runtimeconfig.dev.json
+C:\Users\mromalde\Desktop\BancoVVBA\Banco VVBA\bin\Release\netcoreapp2.2\Banco VVBA.dll
+C:\Users\mromalde\Desktop\BancoVVBA\Banco VVBA\bin\Release\netcoreapp2.2\Banco VVBA.pdb
+C:\Users\mromalde\Desktop\BancoVVBA\Banco VVBA\obj\Release\netcoreapp2.2\Banco VVBA.csprojAssemblyReference.cache
+C:\Users\mromalde\Desktop\BancoVVBA\Banco VVBA\obj\Release\netcoreapp2.2\Banco VVBA.csproj.CoreCompileInputs.cache
+C:\Users\mromalde\Desktop\BancoVVBA\Banco VVBA\obj\Release\netcoreapp2.2\Banco VVBA.RazorAssemblyInfo.cache
+C:\Users\mromalde\Desktop\BancoVVBA\Banco VVBA\obj\Release\netcoreapp2.2\Banco VVBA.RazorAssemblyInfo.cs
+C:\Users\mromalde\Desktop\BancoVVBA\Banco VVBA\obj\Release\netcoreapp2.2\Banco VVBA.AssemblyInfoInputs.cache
+C:\Users\mromalde\Desktop\BancoVVBA\Banco VVBA\obj\Release\netcoreapp2.2\Banco VVBA.AssemblyInfo.cs
+C:\Users\mromalde\Desktop\BancoVVBA\Banco VVBA\obj\Release\netcoreapp2.2\Banco VVBA.RazorTargetAssemblyInfo.cache
+C:\Users\mromalde\Desktop\BancoVVBA\Banco VVBA\obj\Release\netcoreapp2.2\Banco VVBA.dll
+C:\Users\mromalde\Desktop\BancoVVBA\Banco VVBA\obj\Release\netcoreapp2.2\Banco VVBA.pdb
