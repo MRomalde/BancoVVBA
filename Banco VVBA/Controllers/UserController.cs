@@ -26,12 +26,17 @@ namespace Banco_VVBA.Controllers
         #endregion
 
 
-        //Post:pi/[controller]/login
+        //Post:api/[controller]/login
         [HttpPost]
         public async Task<ActionResult<IEnumerable<UsersViewModel>>> Login(LoginModel loginModel)
         {
             var user = _userService.Login(loginModel);
-            return Ok(user);
+            if(user!=null)
+                return Ok(user);
+            else
+            {
+                return NoContent();
+            }
 
         }
 
