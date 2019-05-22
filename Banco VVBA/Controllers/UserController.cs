@@ -34,42 +34,40 @@ namespace Banco_VVBA.Controllers
             if(user!=null)
                 return Ok(user);
             else
-            {
-                return NoContent();
-            }
+                return NoContent();            
 
         }
-
-        // GET: api/User
-        [HttpGet]
-        public IEnumerable<string> Get()
+        //Post:api/[controller]/register
+        [HttpPost("Register")]
+        public async Task<ActionResult<UsersViewModel>> Register(UsersViewModel userModel)
         {
-            return new string[] { "value1", "value2" };
+            var result= await _userService.Register(userModel);
+            return result;
+        }
+        #region Server Validators
+        // GET: api/[controller]/checkdni/dni
+        [HttpGet("CheckIfDniExistInDb/{dni}")]
+        public bool CheckIfDniExistInDb(string dni)
+        {
+            return _userService.CheckIfDniExistInDb(dni);
         }
 
-        // GET: api/User/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("CheckIfLoginExistInDb/{login}")]
+        public bool CheckIfLoginExistInDb(string login)
         {
-            return "value";
+            return _userService.CheckIfLoginExistInDb(login);
         }
+        [HttpGet("CheckIfEmailExistInDb/{email}")]
+        public bool CheckIfEmailExistInDb(string email)
+        {
+            return _userService.CheckIfEmailExistInDb(email);
+        }
+        [HttpGet("CheckIfAliasExistInDb/{alias}")]
+        public bool CheckIfAliasExistInDb(string alias)
+        {
+            return _userService.CheckIfAliasExistInDb(alias);
+        }
+        #endregion
 
-        // POST: api/User
-        [HttpPost]
-        public void Post(string value)
-        {
-        }
-
-        // PUT: api/User/5
-        [HttpPut("{id}")]
-        public void Put(int id, string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

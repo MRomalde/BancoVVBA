@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder,FormGroup, Validators } from '@angular/forms';
+import { UserService } from 'src/app/Services/User/user.service';
+import { User } from 'src/app/Modelos/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -7,9 +11,118 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fb: FormBuilder, private userService:UserService,private router:Router) { }
+
+  userToRegister:User;
+  surnameName:string;
+  aliasAux:string;
+  alias:string;
+
+  formModel=this.fb.group({
+    Name:['',[Validators.required]],
+    Surname:['',[Validators.required]],
+    Email:['',[Validators.required,Validators.email],[this.EmailExistInDb.bind(this)]],
+    Telephone:['',[Validators.required,Validators.min(600000000),Validators.max(799999999)]],
+    Dni:['',[Validators.required],[this.DniExistInDb.bind(this)]],
+    UserName:['',[Validators.required],[this.LoginExistInDb.bind(this)]],
+    Passwords:this.fb.group({
+      Password:['',[Validators.required]],
+      ConfirmPassword:['',Validators.required]
+  },{validator:this.ComparePasswords})
+
+  });
 
   ngOnInit() {
+    this.formModel.reset();
   }
+
+  ComparePasswords(fb:FormGroup){
+    var confirmPasswordControl=fb.get("ConfirmPassword");
+    if(confirmPasswordControl.errors==null|| 'passwordMismatch' in confirmPasswordControl.errors){
+      if(fb.get("Password").value!=confirmPasswordControl.value)
+        confirmPasswordControl.setErrors({passwordMismatch:true});
+      else
+        confirmPasswordControl.setErrors(null);
+    }
+  }
+
+  DniExistInDb(fb:FormGroup){
+    return new Promise(res=>{
+    var dniControlValue=fb.value;
+    this.userService.DniExistInDb(dniControlValue).subscribe(data=>{
+      if(data){
+        fb.setErrors({DniExist:true});
+      }
+      else{
+        fb.setErrors(null);
+      }
+    })
+  })
+  }
+
+  LoginExistInDb(fb:FormGroup){
+    return new Promise(res=>{
+      var loginControlValue=fb.value;
+      this.userService.LoginExistInDb(loginControlValue).subscribe(data=>{
+        if(data)
+          fb.setErrors({LoginExist:true});
+        else
+          fb.setErrors(null);
+      })
+
+    })
+  }
+
+  EmailExistInDb(fb:FormGroup){
+    return new Promise(res=>{
+      var emailControlValue=fb.value;
+      this.userService.EmailExistInDb(emailControlValue).subscribe(data=>{
+        if(data)
+          fb.setErrors({EmailExist:true});
+        else
+          fb.setErrors(null);
+      })
+
+    })
+  }
+
+  Register(){
+    this.surnameName=this.formModel.value.Surname +","+this.formModel.value.Name;
+    this.aliasAux=this.surnameName.substring(0,2) + this.surnameName.substring(this.surnameName.length-2);
+    this.alias=this.CheckIfAliasAlreadyExist(this.aliasAux);
+    console.log(this.alias);
+    //asign the form values to the user
+    this.userToRegister=new User(this.surnameName,this.alias,this.formModel.value.UserName,
+    this.formModel.value.Passwords.Password,this.formModel.value.Dni,this.formModel.value.Telephone,
+    this.formModel.value.Email);
+    //call to the service to register user
+    this.userService.CreateUserFromRegister(this.userToRegister).subscribe((res:any)=>{
+      this.formModel.reset();
+      this.router.navigate(['/user/login']);
+    },
+    err=>{console.log(err)});
+
+    
+  }
+  CheckIfAliasAlreadyExist(alias):string{
+    var counter=1;
+    var aux=alias;
+    var aliasExist=true;
+    while(aliasExist){
+    this.userService.AliasExistInDb(aux).subscribe(data=>{
+      if(data){
+        aux+=counter;
+        counter++;
+      }
+      else
+      aliasExist=false;
+    })
+    return aux;
+  }
+  }
+
+
+
+
 
 }

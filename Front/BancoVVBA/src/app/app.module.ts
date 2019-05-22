@@ -9,9 +9,10 @@ import { UsersComponent } from './Components/User/users/users.component';
 import { OperationsComponent } from './Components/Operaciones/operations/operations.component';
 import { AccountsComponent } from './Components/Cuentas/accounts/accounts.component';
 import { CommissionsComponent } from './Components/Comisiones/commissions/commissions.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
 import { RegisterComponent } from './Components/User/register/register.component';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { RegisterComponent } from './Components/User/register/register.component
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

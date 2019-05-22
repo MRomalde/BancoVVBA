@@ -10,4 +10,19 @@ export class User{
     Mail:string
     TypeAccessId:number;
     TypeAccess:UsersTypeAccess;
+
+
+    public constructor(surnameName:string,alias:string,login:string,password:string,
+        dni:string,telephone:string,mail:string)
+    {
+        this.SurnameName=surnameName;
+        this.Alias=alias;
+        this.Login=login;
+        this.Password=password;
+        this.Dni=dni;
+        this.Telephone=telephone;
+        this.Mail=mail;
+        this.TypeAccessId=3;
+    }
 }
+
