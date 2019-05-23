@@ -12,6 +12,8 @@ import { CommissionsComponent } from './Components/Comisiones/commissions/commis
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
 import { RegisterComponent } from './Components/User/register/register.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ToastrModule } from "ngx-toastr";
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { RegisterComponent } from './Components/User/register/register.component
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

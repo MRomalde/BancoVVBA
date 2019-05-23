@@ -25,12 +25,11 @@ export class UserService {
     return this.http.get(this.Uri + "/checkIfEmailExistInDb/"+ email).pipe(catchError(this.handleError<any>('emailExist',[])));
   }
   AliasExistInDb(alias:string):Observable<any>{
-    return this.http.get(this.Uri+ "/CheckIfAliasExistInDb/"+ alias).pipe(catchError(this.handleError<any>('AliasExist',[])));
+    return this.http.get(this.Uri+ "/CheckIfAliasExistInDb/"+ alias,{responseType:'text'}).pipe(catchError(this.handleError<any>('AliasExist',[])));
   }
 
 
-
-  CreateUserFromRegister(user:User):Observable<any>{
+ CreateUserFromRegister(user:User):Observable<any>{
     return this.http.post(this.Uri+ "/register",user,httpOptions).pipe(catchError(this.handleError<any>('register',[])));
   }
 

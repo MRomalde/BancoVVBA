@@ -1,0 +1,77 @@
+﻿using Banco_VVBA.Context;
+using Banco_VVBA.Models;
+using Banco_VVBA.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Banco_VVBA.Controllers;
+
+namespace Banco_VVBA.Services.AccountService
+{
+    public class AccountService : IAccountService
+    {
+        #region Fields
+        public string ibanForNewAccount;
+        public IEnumerable<UsersViewModel> user;
+        public UserAccountsViewModel accountForNewUser= new UserAccountsViewModel();
+        public UserRepository _userRepository;
+        #endregion
+        #region declaration of repository
+        private AccountRepository _accountRespository;
+        #endregion
+        #region Constructor
+        public AccountService(BancoVVBAContext context, IConfiguration configuration)
+        {
+            _accountRespository = new AccountRepository(context, configuration);
+            _userRepository = new UserRepository(context, configuration);
+        }
+        #endregion
+        public async Task<ActionResult<UserAccountsViewModel>> CreateAccount(UserAccountsViewModel model)
+        {
+            var result = await _accountRespository.CreateAccount(model);
+            return result;
+        }
+
+        #region Create account
+        internal  void CreateAccountFromRegister(string dni)
+        {
+            
+            user = _userRepository.FindUserByDni(dni);
+            ibanForNewAccount = OneIBANMore();
+            ChargeAccount(ibanForNewAccount, user.ElementAt(0));
+            CreateAccount(accountForNewUser);
+
+        }
+        public string OneIBANMore()
+        {
+            string iban = "ES";
+            int numIban = FindLastIban();
+            numIban++;
+            iban += numIban;
+            return iban;
+
+        }
+        public void ChargeAccount(string iban, UsersViewModel user)
+        {
+
+            accountForNewUser.Balance = 0;
+            accountForNewUser.IBAN = iban;
+            accountForNewUser.UserId = user.UserId;
+        }
+        public int FindLastIban()
+        {
+            var result = _accountRespository.FindLastIban();
+            var iban = result.ElementAt(0).IBAN;
+            var numAux = Convert.ToInt32(iban.Substring(2));
+            return numAux;
+
+        }
+        #endregion
+
+
+
+    }
+    }

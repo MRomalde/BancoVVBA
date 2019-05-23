@@ -35,6 +35,11 @@ namespace Banco_VVBA.Services.UserService
             return _userRespository.Register(userModel);
 
         }
+        public IEnumerable<UsersViewModel> FindUserByDni(string dni)
+        {
+            var user = _userRespository.FindUserByDni(dni);
+            return user;
+        }
         #region server validators
         public bool CheckIfDniExistInDb(string dni)
         {
@@ -56,10 +61,20 @@ namespace Banco_VVBA.Services.UserService
             var result = _userRespository.compareEmail(email).ToList().Any();
             return result;
         }
-        public bool CheckIfAliasExistInDb(string alias)
+        public string CheckIfAliasExistInDbAndReturnGoodAlias(string alias)
         {
-            var result = _userRespository.compareAlias(alias).ToList().Any();
-            return result;
+            string aliasAux =alias;
+            int counter=1;
+            var result = _userRespository.compareAlias(aliasAux).ToList().Any();
+            while(result)
+            {
+                if (aliasAux.Length != 4)
+                    aliasAux=aliasAux.Substring(0,alias.Length);
+                aliasAux += counter;
+                result = _userRespository.compareAlias(aliasAux).ToList().Any();
+                counter++;
+            }
+            return aliasAux;
         }
         #endregion
     }

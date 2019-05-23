@@ -15,6 +15,7 @@ namespace Banco_VVBA.Services.UserService
         bool CheckIfLoginExistInDb(string login);
         bool CheckIfEmailExistInDb(string email);
         Task<ActionResult<UsersViewModel>> Register(UsersViewModel userModel);
-        bool CheckIfAliasExistInDb(string alias);
+        string CheckIfAliasExistInDbAndReturnGoodAlias(string alias);
+        IEnumerable<UsersViewModel> FindUserByDni(string dni);
     }
 }

@@ -3,6 +3,9 @@ import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/Services/User/user.service';
 import { User } from 'src/app/Modelos/user';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Account } from 'src/app/Modelos/account';
+import { AccountService } from 'src/app/Services/Account/account.service';
 
 @Component({
   selector: 'app-register',
@@ -11,12 +14,15 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private userService:UserService,private router:Router) { }
+  constructor(private fb: FormBuilder, private userService:UserService,private router:Router,
+    private toastr:ToastrService,private accountService:AccountService) { }
 
   userToRegister:User;
   surnameName:string;
-  aliasAux:string;
-  alias:string;
+  alias:string=null;
+  aliasExistInDb:boolean=true;
+  //it's a list because the back come as a list of an asynchronous operation
+  userToCreateAccount:User[];
 
   formModel=this.fb.group({
     Name:['',[Validators.required]],
@@ -29,7 +35,6 @@ export class RegisterComponent implements OnInit {
       Password:['',[Validators.required]],
       ConfirmPassword:['',Validators.required]
   },{validator:this.ComparePasswords})
-
   });
 
   ngOnInit() {
@@ -86,43 +91,28 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  Register(){
+    Register(){
     this.surnameName=this.formModel.value.Surname +","+this.formModel.value.Name;
-    this.aliasAux=this.surnameName.substring(0,2) + this.surnameName.substring(this.surnameName.length-2);
-    this.alias=this.CheckIfAliasAlreadyExist(this.aliasAux);
-    console.log(this.alias);
+    this.alias=this.surnameName.substring(0,2) + this.surnameName.substring(this.surnameName.length-2);
+    
+    this.userService.AliasExistInDb(this.alias).subscribe(data=>{
+      this.alias=data;
+    //if you need to use the values of the subscribe, you need to put all your behind code inside it   
     //asign the form values to the user
     this.userToRegister=new User(this.surnameName,this.alias,this.formModel.value.UserName,
     this.formModel.value.Passwords.Password,this.formModel.value.Dni,this.formModel.value.Telephone,
     this.formModel.value.Email);
+    
     //call to the service to register user
     this.userService.CreateUserFromRegister(this.userToRegister).subscribe((res:any)=>{
+      //find the user created and then create his account  in the back
       this.formModel.reset();
-      this.router.navigate(['/user/login']);
+      this.toastr.success("New user created!","Registration successful");
+      this.router.navigate(["/user/login"]);
     },
     err=>{console.log(err)});
-
-    
+  })
   }
-  CheckIfAliasAlreadyExist(alias):string{
-    var counter=1;
-    var aux=alias;
-    var aliasExist=true;
-    while(aliasExist){
-    this.userService.AliasExistInDb(aux).subscribe(data=>{
-      if(data){
-        aux+=counter;
-        counter++;
-      }
-      else
-      aliasExist=false;
-    })
-    return aux;
-  }
-  }
-
-
-
-
-
 }
+
+

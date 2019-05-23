@@ -16,7 +16,7 @@
                       <input type="text" class="form-control" minlength="2" maxlength="25"
                        placeholder="Apellidos" formControlName="Surname">
                        <label class="text-danger" *ngIf="formModel.get('Surname').touched && formModel.get('Surname').errors?.required">El campo apellidos es obligatorio</label>
-                       <label class="text-danger" *ngIf="formModel.get('Surname').touched && formModel.get('Surname').errors?.minlength">El campo apellidos debe tener como minimo 25 caracteres</label>
+                       <label class="text-danger" *ngIf="formModel.get('Surname').touched && formModel.get('Surname').errors?.minlength">El campo apellidos debe tener como minimo 2 caracteres</label>
                     </div>
                 <div class="form-group required">
                   <input type="email" class="form-control" maxlength="50"

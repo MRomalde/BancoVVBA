@@ -1,5 +1,7 @@
 ﻿using Banco_VVBA.Context;
+using Banco_VVBA.Controllers;
 using Banco_VVBA.Models;
+using Banco_VVBA.Services.AccountService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,14 +13,15 @@ using System.Web.Http;
 
 namespace Banco_VVBA.Repositories
 {
-    public class UserRepository: Controller
+    public class UserRepository : Controller
     {
         #region Fields
         private readonly IConfiguration _configuration;
         private readonly BancoVVBAContext _context;
+        public AccountService _accountService;
         #endregion
         #region Constructor
-        public UserRepository(BancoVVBAContext context,IConfiguration configuration)
+        public UserRepository(BancoVVBAContext context, IConfiguration configuration)
         {
             _context = context;
             _configuration = configuration;
@@ -32,33 +35,45 @@ namespace Banco_VVBA.Repositories
         }
         internal async Task<ActionResult<UsersViewModel>> Register(UsersViewModel userModel)
         {
+            _accountService = new AccountService(_context, _configuration);
             _context.Users.Add(userModel);
             await _context.SaveChangesAsync();
+            _accountService.CreateAccountFromRegister(userModel.Dni);
             return Ok();
+
         }
-        #region Server validators
-        public IQueryable<UsersViewModel> CompareDni(string dni)
+        public IEnumerable<UsersViewModel> FindUserByDni(string dni)
         {
-            var existDni = _context.Users.Where(User => User.Dni == dni);
-            return existDni;
+              var user =  _context.Users.Include(User => User.TypeAccess).
+                     Where(User => User.Dni == dni).ToList();
+                return user;
+         }
+
+         #region Server validators
+            internal IQueryable<UsersViewModel> CompareDni(string dni)
+            {
+                var existDni = _context.Users.Where(User => User.Dni == dni);
+                return existDni;
+            }
+
+            internal IQueryable<UsersViewModel> compareEmail(string email)
+            {
+                var existEmail = _context.Users.Where(User => User.Mail == email);
+                return existEmail;
+            }
+
+            internal IQueryable<UsersViewModel> compareLogin(string login)
+            {
+                var existLogin = _context.Users.Where(User => User.Login == login);
+                return existLogin;
+            }
+            internal IQueryable<UsersViewModel> compareAlias(string alias)
+            {
+                var existAlias = _context.Users.Where(User => User.Alias == alias);
+                return existAlias;
+            }
+            #endregion
         }
 
-        internal IQueryable<UsersViewModel> compareEmail(string email)
-        {
-            var existEmail = _context.Users.Where(User => User.Mail == email);
-            return existEmail;
-        }
-
-        internal IQueryable<UsersViewModel> compareLogin(string login)
-        {
-            var existLogin = _context.Users.Where(User => User.Login == login);
-            return existLogin;
-        }
-        internal IQueryable<UsersViewModel> compareAlias(string alias)
-        {
-            var existAlias = _context.Users.Where(User => User.Alias == alias);
-            return existAlias;
-        }
-        #endregion
-    }
-}
+    }     
+    

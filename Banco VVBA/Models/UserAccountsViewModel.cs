@@ -19,5 +19,7 @@ namespace Banco_VVBA.Models
         public int UserId { get; set;}
         [ForeignKey("UserId")]
         public virtual UsersViewModel User { get; set; }
+
+        public UserAccountsViewModel() { }
     }
 }

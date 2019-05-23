@@ -44,6 +44,17 @@ namespace Banco_VVBA.Controllers
             var result= await _userService.Register(userModel);
             return result;
         }
+        //Get:api/[controller]/findByDni
+        [HttpGet("FindUserByDni/{dni}")]
+        public  IEnumerable<UsersViewModel> FindUserByDni(string dni)
+        {
+            var user =  _userService.FindUserByDni(dni);
+            return user;
+        }
+
+
+
+
         #region Server Validators
         // GET: api/[controller]/checkdni/dni
         [HttpGet("CheckIfDniExistInDb/{dni}")]
@@ -63,9 +74,10 @@ namespace Banco_VVBA.Controllers
             return _userService.CheckIfEmailExistInDb(email);
         }
         [HttpGet("CheckIfAliasExistInDb/{alias}")]
-        public bool CheckIfAliasExistInDb(string alias)
+        public string CheckIfAliasExistInDb(string alias)
         {
-            return _userService.CheckIfAliasExistInDb(alias);
+            var result=  _userService.CheckIfAliasExistInDbAndReturnGoodAlias(alias);
+            return result;
         }
         #endregion
 
