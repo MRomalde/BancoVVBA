@@ -4,8 +4,6 @@ import { UserService } from 'src/app/Services/User/user.service';
 import { User } from 'src/app/Modelos/user';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Account } from 'src/app/Modelos/account';
-import { AccountService } from 'src/app/Services/Account/account.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +13,7 @@ import { AccountService } from 'src/app/Services/Account/account.service';
 export class RegisterComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private userService:UserService,private router:Router,
-    private toastr:ToastrService,private accountService:AccountService) { }
+    private toastr:ToastrService) { }
 
   userToRegister:User;
   surnameName:string;

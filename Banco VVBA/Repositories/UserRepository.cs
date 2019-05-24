@@ -30,7 +30,7 @@ namespace Banco_VVBA.Repositories
         public async Task<IEnumerable<UsersViewModel>> FindUserByLogin(LoginModel loginModel)
         {
             var user = await _context.Users.Include(User => User.TypeAccess)
-                .Where(User => User.Login == loginModel.Login && User.Password == loginModel.Password).ToListAsync();
+                .Where(User => User.Login == loginModel.UserName && User.Password == loginModel.Password).ToListAsync();
             return user;
         }
         internal async Task<ActionResult<UsersViewModel>> Register(UsersViewModel userModel)

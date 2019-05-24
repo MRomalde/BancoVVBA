@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpClientModule  } from '@angular/common/http
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from 'src/app/Modelos/user';
+import { LoginModel } from 'src/app/Modelos/loginModel';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,7 +15,7 @@ export class UserService {
 
   Uri="https://localhost:5001/api/user";
   constructor(private http: HttpClient) { }
-
+  //Server Validators
   DniExistInDb(dni:string):Observable<any>{
     return this.http.get(this.Uri + "/checkIfDniExistInDb/"+ dni).pipe(catchError(this.handleError<any>('dniExist',[])));
   }
@@ -27,10 +28,13 @@ export class UserService {
   AliasExistInDb(alias:string):Observable<any>{
     return this.http.get(this.Uri+ "/CheckIfAliasExistInDb/"+ alias,{responseType:'text'}).pipe(catchError(this.handleError<any>('AliasExist',[])));
   }
-
-
- CreateUserFromRegister(user:User):Observable<any>{
+  //Register
+  CreateUserFromRegister(user:User):Observable<any>{
     return this.http.post(this.Uri+ "/register",user,httpOptions).pipe(catchError(this.handleError<any>('register',[])));
+  }
+  //Login
+  Login(loginModel:LoginModel):Observable<any>{
+    return this.http.post(this.Uri + "/login",loginModel,httpOptions).pipe(catchError(this.handleError<any>('login',[])));
   }
 
 

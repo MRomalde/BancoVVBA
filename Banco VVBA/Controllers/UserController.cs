@@ -27,11 +27,11 @@ namespace Banco_VVBA.Controllers
 
 
         //Post:api/[controller]/login
-        [HttpPost]
+        [HttpPost("Login")]
         public async Task<ActionResult<IEnumerable<UsersViewModel>>> Login(LoginModel loginModel)
         {
-            var user = _userService.Login(loginModel);
-            if(user!=null)
+            var user = await _userService.Login(loginModel);
+            if(user.Count()!=0)
                 return Ok(user);
             else
                 return NoContent();            

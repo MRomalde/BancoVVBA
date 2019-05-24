@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from '../app/app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './Components/User/login/login.component';
 import { NavBarComponent } from './Components/NavBar/nav-bar/nav-bar.component';
@@ -14,6 +14,7 @@ import { HttpClientModule }    from '@angular/common/http';
 import { RegisterComponent } from './Components/User/register/register.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
+import { MyAccountComponent } from './Components/User/my-account/my-account.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { ToastrModule } from "ngx-toastr";
     AccountsComponent,
     CommissionsComponent,
     RegisterComponent,
+    MyAccountComponent,
 
   ],
   imports: [

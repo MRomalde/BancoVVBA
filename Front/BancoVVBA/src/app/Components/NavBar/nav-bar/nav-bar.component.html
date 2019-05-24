@@ -3,15 +3,16 @@
       <div class="container">
         <a class="brand-logo">{{title}}</a>
         <ul class="logout">
-          <li><a routerLink="/user/login">Logout</a></li>
+          <li *ngIf="userIsLogged"><a (click)="Logout()">Logout</a></li>
         </ul>        
         <ul class="right hide-on-med-and-down">
-          <li><a routerLink="/user/users">Usuarios</a></li>
-          <li><a routerLink="/account/accounts">Cuentas</a></li>
-          <li><a routerLink="/operation/operations">Operaciones</a></li>
-          <li><a routerLink="/commission/commissions">Comisiones</a></li>
-          <li><a routerLink="/user/login">Login</a></li>
-          <li><a routerLink="/user/register">Register</a></li>
+          <li *ngIf="userIsLogged && user.typeAccessId==1"><a routerLink="/user/users">Usuarios</a></li>
+          <li *ngIf="userIsLogged && user.typeAccessId==1"><a routerLink="/account/accounts">Cuentas</a></li>
+          <li *ngIf="userIsLogged && user.typeAccessId==1"><a routerLink="/operation/operations">Operaciones</a></li>
+          <li *ngIf="userIsLogged && user.typeAccessId==1"><a routerLink="/commission/commissions">Comisiones</a></li>
+          <li *ngIf="userIsLogged"><a routerLink="/user/myAccount">My Account</a></li>
+          <li *ngIf="!userIsLogged"><a routerLink="/user/login">Login</a></li>
+          <li *ngIf="!userIsLogged"><a routerLink="/user/register">Register</a></li>
         </ul>
       </div>
     </div>
