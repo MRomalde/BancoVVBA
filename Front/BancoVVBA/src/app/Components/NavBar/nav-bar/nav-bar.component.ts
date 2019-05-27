@@ -1,5 +1,5 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { User } from 'src/app/Modelos/user';
 
 @Component({
@@ -7,23 +7,36 @@ import { User } from 'src/app/Modelos/user';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent implements OnInit,OnChanges {
+export class NavBarComponent implements OnInit, OnDestroy {
   title="Banco VVBA";
   userIsLogged:boolean=false;
   userRol:string;
   user:User;
   counter:number;
-  constructor(private router:Router) { }
+  navigationSubscription;
+  constructor(private router:Router) 
+    {
+      // subscribe to the router events - storing the subscription so
+      // we can unsubscribe later. 
+      this.navigationSubscription = this.router.events.subscribe((e: any) => {
+        // If it is a NavigationEnd event re-initalise the component
+        if (e instanceof NavigationEnd) {
+          this.ngOnInit();
+        }
+      });
+    }
 
 
   ngOnInit() {
     this.CheckIfUserIsLogged();
-    //Need to refresh the component
   }
-  
-  ngOnChanges(){
-    //need to refresh
-    location.reload();
+  ngOnDestroy() {
+    // avoid memory leaks here by cleaning up after ourselves. If we  
+    // don't then we will continue to run our initialiseInvites()   
+    // method on every navigationEnd event.
+    if (this.navigationSubscription) {  
+       this.navigationSubscription.unsubscribe();
+    }
   }
   Logout(){
     localStorage.removeItem("currentUser");
@@ -36,10 +49,8 @@ export class NavBarComponent implements OnInit,OnChanges {
     else{
       this.userIsLogged=true;
       this.user=JSON.parse(localStorage.getItem("currentUser"));
-      console.log(this.user);
     
     }
-    console.log(this.userIsLogged);
   }
 
 }

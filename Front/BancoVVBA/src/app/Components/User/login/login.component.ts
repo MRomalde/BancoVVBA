@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   loginModel:LoginModel;
   userLogin:User[];
+  refresh:string;
   constructor(private fb:FormBuilder,private userService:UserService,private router:Router,
     private toastr:ToastrService) { }
 
@@ -25,21 +26,22 @@ export class LoginComponent implements OnInit {
     });
 
   ngOnInit() {
-    this.formLogin.reset();
+    this.formLogin.reset();  
+     
   }
-
   Login(){
     this.loginModel=new LoginModel(this.formLogin.value.UserName,this.formLogin.value.Password);
     this.userService.Login(this.loginModel).subscribe(res=>{      
       this.userLogin=res;
       if(this.userLogin==undefined){
-        this.toastr.error("Username o contraseña incorrectos","Error de inicio de sesion");
+        this.toastr.error("Username y/o contraseña incorrectos","Error de inicio de sesion");
         this.formLogin.reset();
       }
       else{
       //localstorage only contains strings so we have to parse the response to string and
       //to recover it we need to parse it other time to an object
       localStorage.setItem('currentUser',JSON.stringify(this.userLogin[0]));
+      localStorage.setItem("refresh","0");
       switch(this.userLogin[0].typeAccessId){
         case 1:
           this.router.navigate(["/user/users"]);

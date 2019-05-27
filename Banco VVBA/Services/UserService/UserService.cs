@@ -26,10 +26,6 @@ namespace Banco_VVBA.Services.UserService
             var user = _userRespository.FindUserByLogin(loginModel);
             return user;
         }
-        public Task<IEnumerable<UsersViewModel>> GetUsers()
-        {
-            throw new NotImplementedException();
-        }
         public Task<ActionResult<UsersViewModel>> Register(UsersViewModel userModel)
         {
             return _userRespository.Register(userModel);
@@ -40,6 +36,17 @@ namespace Banco_VVBA.Services.UserService
             var user = _userRespository.FindUserByDni(dni);
             return user;
         }
+        public async Task<IEnumerable<UsersViewModel>> GetAllUsers()
+        {
+            var users = await _userRespository.GetAllUsers();
+            return users;
+        }
+        public async Task<IEnumerable<UsersViewModel>> SearchByName(string name)
+        {
+            var result = await _userRespository.SearchByName(name);
+            return result;
+        }
+
         #region server validators
         public bool CheckIfDniExistInDb(string dni)
         {

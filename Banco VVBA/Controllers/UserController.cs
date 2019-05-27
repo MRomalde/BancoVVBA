@@ -25,9 +25,24 @@ namespace Banco_VVBA.Controllers
         }
         #endregion
 
+        //Get:api/[controller]/getAllUsers
+        [HttpGet("getAllUsers")]
+        public async Task<ActionResult<IEnumerable<UsersViewModel>>> GetAllUsers()
+        {
+            var users = await _userService.GetAllUsers();
+            return Ok(users);
+
+        }
+        //Get:api/[controller]/name/{name}
+        [HttpGet("name/{name}")]
+        public async Task<IEnumerable<UsersViewModel>> SearchByName(string name)
+        {
+            var usersByName = await _userService.SearchByName(name);
+            return usersByName;
+        }
 
         //Post:api/[controller]/login
-        [HttpPost("Login")]
+        [HttpPost("login")]
         public async Task<ActionResult<IEnumerable<UsersViewModel>>> Login(LoginModel loginModel)
         {
             var user = await _userService.Login(loginModel);
@@ -35,15 +50,15 @@ namespace Banco_VVBA.Controllers
                 return Ok(user);
             else
                 return NoContent();            
-
         }
         //Post:api/[controller]/register
-        [HttpPost("Register")]
+        [HttpPost("register")]
         public async Task<ActionResult<UsersViewModel>> Register(UsersViewModel userModel)
         {
             var result= await _userService.Register(userModel);
             return result;
         }
+
         //Get:api/[controller]/findByDni
         [HttpGet("FindUserByDni/{dni}")]
         public  IEnumerable<UsersViewModel> FindUserByDni(string dni)
@@ -51,10 +66,7 @@ namespace Banco_VVBA.Controllers
             var user =  _userService.FindUserByDni(dni);
             return user;
         }
-
-
-
-
+        
         #region Server Validators
         // GET: api/[controller]/checkdni/dni
         [HttpGet("CheckIfDniExistInDb/{dni}")]

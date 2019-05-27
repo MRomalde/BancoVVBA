@@ -99,7 +99,7 @@ export class RegisterComponent implements OnInit {
     //asign the form values to the user
     this.userToRegister=new User(this.surnameName,this.alias,this.formModel.value.UserName,
     this.formModel.value.Passwords.Password,this.formModel.value.Dni,this.formModel.value.Telephone,
-    this.formModel.value.Email);
+    this.formModel.value.Email,3);
     
     //call to the service to register user
     this.userService.CreateUserFromRegister(this.userToRegister).subscribe((res:any)=>{

@@ -15,6 +15,27 @@ export class UserService {
 
   Uri="https://localhost:5001/api/user";
   constructor(private http: HttpClient) { }
+
+  GetAllUsers():Observable<any>{
+    return this.http.get(this.Uri + "/getAllUsers").pipe(catchError(this.handleError<any>('GetAllUsers',[])));
+  }
+
+  searchUsers(search:string):Observable<any>{
+    if(!search.trim()){
+      return of([]);
+    }
+    return this.http.get(this.Uri + "/name/" + search).pipe(catchError(this.handleError<any>('Search',[])));
+  }
+
+  //Register
+  CreateUserFromRegister(user:User):Observable<any>{
+    return this.http.post(this.Uri+ "/register",user,httpOptions).pipe(catchError(this.handleError<any>('register',[])));
+  }
+  //Login
+  Login(loginModel:LoginModel):Observable<any>{
+    return this.http.post(this.Uri + "/login",loginModel,httpOptions).pipe(catchError(this.handleError<any>('login',[])));
+  }
+
   //Server Validators
   DniExistInDb(dni:string):Observable<any>{
     return this.http.get(this.Uri + "/checkIfDniExistInDb/"+ dni).pipe(catchError(this.handleError<any>('dniExist',[])));
@@ -28,14 +49,7 @@ export class UserService {
   AliasExistInDb(alias:string):Observable<any>{
     return this.http.get(this.Uri+ "/CheckIfAliasExistInDb/"+ alias,{responseType:'text'}).pipe(catchError(this.handleError<any>('AliasExist',[])));
   }
-  //Register
-  CreateUserFromRegister(user:User):Observable<any>{
-    return this.http.post(this.Uri+ "/register",user,httpOptions).pipe(catchError(this.handleError<any>('register',[])));
-  }
-  //Login
-  Login(loginModel:LoginModel):Observable<any>{
-    return this.http.post(this.Uri + "/login",loginModel,httpOptions).pipe(catchError(this.handleError<any>('login',[])));
-  }
+  
 
 
 

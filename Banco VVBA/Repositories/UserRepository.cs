@@ -35,13 +35,28 @@ namespace Banco_VVBA.Repositories
         }
         internal async Task<ActionResult<UsersViewModel>> Register(UsersViewModel userModel)
         {
+            //create here an instance of the account service
             _accountService = new AccountService(_context, _configuration);
             _context.Users.Add(userModel);
             await _context.SaveChangesAsync();
+            //create the account for the user
             _accountService.CreateAccountFromRegister(userModel.Dni);
             return Ok();
 
         }
+
+        internal async Task<IEnumerable<UsersViewModel>> SearchByName(string name)
+        {
+            var result = await _context.Users.Where(User => User.SurnameName.Contains(name)).ToListAsync();
+            return result;
+        }
+
+        internal async Task<IEnumerable<UsersViewModel>> GetAllUsers()
+        {
+            var users = await _context.Users.Include(User => User.TypeAccess).ToListAsync();
+            return users;
+        }
+
         public IEnumerable<UsersViewModel> FindUserByDni(string dni)
         {
               var user =  _context.Users.Include(User => User.TypeAccess).

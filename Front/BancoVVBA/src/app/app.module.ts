@@ -15,7 +15,9 @@ import { RegisterComponent } from './Components/User/register/register.component
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
 import { MyAccountComponent } from './Components/User/my-account/my-account.component';
-
+import { UserDetailsComponent } from './Components/User/user-details/user-details.component';
+import { SearchComponent } from './Components/User/search/search.component';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover'
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { MyAccountComponent } from './Components/User/my-account/my-account.comp
     CommissionsComponent,
     RegisterComponent,
     MyAccountComponent,
+    UserDetailsComponent,
+    SearchComponent,
 
   ],
   imports: [
@@ -38,6 +42,7 @@ import { MyAccountComponent } from './Components/User/my-account/my-account.comp
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
+    ConfirmationPopoverModule.forRoot({confirmButtonType: 'danger'}),
   ],
   providers: [],
   bootstrap: [AppComponent]

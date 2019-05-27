@@ -13,7 +13,7 @@ export class User{
 
 
     public constructor(surnameName:string,alias:string,login:string,password:string,
-        dni:string,telephone:string,mail:string)
+        dni:string,telephone:string,mail:string,typeAccesId:number)
     {
         this.surnameName=surnameName;
         this.alias=alias;
@@ -22,7 +22,7 @@ export class User{
         this.dni=dni;
         this.telephone=telephone;
         this.mail=mail;
-        this.typeAccessId=3;
+        this.typeAccessId=typeAccesId;
     }
 }
 

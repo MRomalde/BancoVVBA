@@ -12,6 +12,7 @@ const routes: Routes = [
   {path:"user/login", component: LoginComponent},
   {path:"user/register", component:RegisterComponent},
   {path:"user/users" , component: UsersComponent},
+  {path:"user/details/:id" , component: UsersComponent},
   {path:"user/myAccount", component:MyAccountComponent},
   {path:"account/accounts", component:AccountsComponent},
   {path:"operation/operations", component:OperationsComponent},

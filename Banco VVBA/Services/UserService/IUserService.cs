@@ -9,7 +9,6 @@ namespace Banco_VVBA.Services.UserService
 {
     interface IUserService
     {
-        Task<IEnumerable<UsersViewModel>> GetUsers();
         Task<IEnumerable<UsersViewModel>> Login(LoginModel loginModel);
         bool CheckIfDniExistInDb(string dni);
         bool CheckIfLoginExistInDb(string login);
@@ -17,5 +16,7 @@ namespace Banco_VVBA.Services.UserService
         Task<ActionResult<UsersViewModel>> Register(UsersViewModel userModel);
         string CheckIfAliasExistInDbAndReturnGoodAlias(string alias);
         IEnumerable<UsersViewModel> FindUserByDni(string dni);
+        Task<IEnumerable<UsersViewModel>> GetAllUsers();
+        Task<IEnumerable<UsersViewModel>> SearchByName(string name);
     }
 }
