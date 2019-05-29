@@ -33,6 +33,13 @@ namespace Banco_VVBA.Controllers
             return Ok(users);
 
         }
+        //Get:api/[controller]/findUserById/{id}
+        [HttpGet("findUserById/{id}")]
+        public async Task<IEnumerable<UsersViewModel>> findUserById(int id)
+        {
+            var result = await _userService.FindUserByIdAndReturnList(id);
+            return result;
+        }
         //Get:api/[controller]/name/{name}
         [HttpGet("name/{name}")]
         public async Task<IEnumerable<UsersViewModel>> SearchByName(string name)
@@ -40,7 +47,7 @@ namespace Banco_VVBA.Controllers
             var usersByName = await _userService.SearchByName(name);
             return usersByName;
         }
-
+        
         //Post:api/[controller]/login
         [HttpPost("login")]
         public async Task<ActionResult<IEnumerable<UsersViewModel>>> Login(LoginModel loginModel)
@@ -58,6 +65,39 @@ namespace Banco_VVBA.Controllers
             var result= await _userService.Register(userModel);
             return result;
         }
+        //Put:api/[controller]/updateUser/{id}
+        [HttpPut("updateUser/{id}")]
+        public async Task<IActionResult> UpdateUser(int id,UsersViewModel user)
+        {
+            if (id != user.UserId)
+            {
+                return BadRequest();
+            }
+            await _userService.UpdateUser(id, user);
+            return Ok();
+        }
+
+
+        //Delete:api/[controller]/deleteById
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult> DeleteById(int id)
+        {
+            var user = await _userService.FindUserById(id);
+            if (user == null)
+                return NotFound();
+
+            await _userService.DeleteUser(user);
+            return Ok();
+        }
+
+        //Get:api/[controller]/geAllUserTypeAccess
+        [HttpGet("getAllUserTypeAccess")]
+        public async Task<ActionResult<IEnumerable<UserTypeAccessViewModel>>> GetAllUserTypeAccess()
+        {
+            var result = await _userService.GetAllUserTypeAccess();
+            return result;
+        }
+
 
         //Get:api/[controller]/findByDni
         [HttpGet("FindUserByDni/{dni}")]

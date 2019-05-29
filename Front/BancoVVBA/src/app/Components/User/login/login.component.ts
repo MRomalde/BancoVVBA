@@ -26,8 +26,10 @@ export class LoginComponent implements OnInit {
     });
 
   ngOnInit() {
+    if(localStorage.getItem("currentUser")!=null){
+      this.router.navigate(["/user/users"]);
+    }
     this.formLogin.reset();  
-     
   }
   Login(){
     this.loginModel=new LoginModel(this.formLogin.value.UserName,this.formLogin.value.Password);

@@ -18,5 +18,10 @@ namespace Banco_VVBA.Services.UserService
         IEnumerable<UsersViewModel> FindUserByDni(string dni);
         Task<IEnumerable<UsersViewModel>> GetAllUsers();
         Task<IEnumerable<UsersViewModel>> SearchByName(string name);
+        Task<UsersViewModel> FindUserById(int id);
+        Task<ActionResult> DeleteUser(UsersViewModel user);
+        Task<ActionResult<IEnumerable<UserTypeAccessViewModel>>> GetAllUserTypeAccess();
+        Task<IEnumerable<UsersViewModel>> FindUserByIdAndReturnList(int id);
+        Task<IActionResult> UpdateUser(int id, UsersViewModel user);
     }
 }

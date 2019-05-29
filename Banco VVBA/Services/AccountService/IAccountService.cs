@@ -11,5 +11,9 @@ namespace Banco_VVBA.Services.AccountService
     {
         Task<ActionResult<UserAccountsViewModel>> CreateAccount(UserAccountsViewModel model);
         int FindLastIban();
+        Task<ActionResult<IEnumerable<UserAccountsViewModel>>> GetAllAccounts();
+        Task<ActionResult<IEnumerable<UserAccountsViewModel>>> findAccountById(int id);
+        Task<ActionResult> updateAccount(UserAccountsViewModel account);
+        Task<IEnumerable<UserAccountsViewModel>> SearchByName(string name);
     }
 }

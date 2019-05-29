@@ -1,4 +1,4 @@
 export class UsersTypeAccess{
-    TypeAccessId:number;
-    Description:string;
+    typeAccessId:number;
+    description:string;
 }

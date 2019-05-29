@@ -51,6 +51,39 @@ namespace Banco_VVBA.Repositories
             return result;
         }
 
+        internal async Task<IEnumerable<UsersViewModel>> FindUserByIdAndReturnList(int id)
+        {
+            var result = await _context.Users.Where(User => User.UserId == id).ToListAsync();
+            return result;
+        }
+
+        internal async Task<ActionResult> DeleteUser(UsersViewModel user)
+        {
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return Ok();
+
+        }
+
+        internal async Task<ActionResult<IEnumerable<UserTypeAccessViewModel>>> GetAllUserTypeAccess()
+        {
+            var result = await _context.UsersTypeAccess.ToListAsync();
+            return result;
+        }
+
+        internal async Task<IActionResult> UpdateUser(int id, UsersViewModel user)
+        {
+            _context.Entry(user).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        internal async Task<UsersViewModel> FindUserById(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            return user;
+        }
+
         internal async Task<IEnumerable<UsersViewModel>> GetAllUsers()
         {
             var users = await _context.Users.Include(User => User.TypeAccess).ToListAsync();
@@ -87,8 +120,8 @@ namespace Banco_VVBA.Repositories
                 var existAlias = _context.Users.Where(User => User.Alias == alias);
                 return existAlias;
             }
-            #endregion
-        }
+        #endregion
+    }
 
     }     
     

@@ -15,16 +15,30 @@ export class UserService {
 
   Uri="https://localhost:5001/api/user";
   constructor(private http: HttpClient) { }
-
+  //get all users
   GetAllUsers():Observable<any>{
     return this.http.get(this.Uri + "/getAllUsers").pipe(catchError(this.handleError<any>('GetAllUsers',[])));
   }
+  //find user by id
+  GetUserById(userId:number):Observable<any>{
+    return this.http.get(this.Uri + "/findUserById/" + userId).pipe(catchError(this.handleError<any>('getUserById',[])));
+  }
 
+  //Update user
+  UpdateUser(user:User):Observable<any>{
+    return this.http.put(this.Uri + "/updateUser/" + user.userId,user).pipe(catchError(this.handleError<any>('getUserById',[])));
+  }
+  //search users
   searchUsers(search:string):Observable<any>{
     if(!search.trim()){
       return of([]);
     }
     return this.http.get(this.Uri + "/name/" + search).pipe(catchError(this.handleError<any>('Search',[])));
+  }
+
+  //Delete user
+  DeleteUser(userId:number):Observable<any>{
+    return this.http.delete(this.Uri + "/delete/"+ userId).pipe(catchError(this.handleError<any>('Delete',[])));
   }
 
   //Register
@@ -34,6 +48,15 @@ export class UserService {
   //Login
   Login(loginModel:LoginModel):Observable<any>{
     return this.http.post(this.Uri + "/login",loginModel,httpOptions).pipe(catchError(this.handleError<any>('login',[])));
+  }
+
+  //Count the number of admins
+  LookIfUserAreYou(user:User){
+    return this.http.get(this.Uri + "/lookIfUserAreYou/"+user.userId).pipe(catchError(this.handleError<any>('numberOfAdmins',[])));
+  }
+  //get all user type access
+  GetAllUserTypeAccess():Observable<any>{
+    return this.http.get(this.Uri + "/getAllUserTypeAccess").pipe(catchError(this.handleError<any>('getAllUserTypeAccess',[])));
   }
 
   //Server Validators

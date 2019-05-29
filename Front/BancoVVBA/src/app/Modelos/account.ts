@@ -1,9 +1,9 @@
 import { User } from './user';
 export class Account{
-    AccountId:number;
-    Balance:number;
-    IBAN:string;
-    UserId:number;
-    User:User;
+    accountId:number;
+    balance:number;
+    iban:string;
+    userId:number;
+    user:User;
     constructor(){};
 }

@@ -17,6 +17,26 @@ export class AccountService {
   Uri="https://localhost:5001/api/account"
   constructor(private http:HttpClient) { }
 
+  //get all accounts
+  GetAllAccounts():Observable<any>{
+    return this.http.get(this.Uri + "/getAllAccounts").pipe(catchError(this.handleError<any>('getAllAccounts',[])));
+  }
+  //get account by Id
+  GetAccountById(accountId:number):Observable<any>{
+    return this.http.get(this.Uri + "/findAccountById/"+ accountId).pipe(catchError(this.handleError<any>('getAccountById',[])));
+  }
+  //Update account
+  UpdateAccount(account:Account):Observable<any>{
+    return this.http.put(this.Uri+"/updateAccount/" + account.accountId,account).pipe(catchError(this.handleError<any>('updateAccount',[])));
+  }
+
+  //search accounts by name
+  searchAccounts(term:string):Observable<any>{
+    return this.http.get(this.Uri+ "/name/" + term).pipe(catchError(this.handleError<any>('searchByName',[])));
+  }
+
+
+
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

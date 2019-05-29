@@ -46,6 +46,31 @@ namespace Banco_VVBA.Services.UserService
             var result = await _userRespository.SearchByName(name);
             return result;
         }
+        public async Task<UsersViewModel> FindUserById(int id)
+        {
+            var user = await _userRespository.FindUserById(id);
+            return user;
+        }
+        public async Task<IEnumerable<UsersViewModel>> FindUserByIdAndReturnList(int id)
+        {
+            var result = await _userRespository.FindUserByIdAndReturnList(id);
+            return result;
+        }
+
+        public async Task<ActionResult> DeleteUser(UsersViewModel user)
+        {
+            return await _userRespository.DeleteUser(user);
+            
+        }
+        public async Task<ActionResult<IEnumerable<UserTypeAccessViewModel>>> GetAllUserTypeAccess()
+        {
+            var result = await _userRespository.GetAllUserTypeAccess();
+            return result;
+        }
+        public async Task<IActionResult> UpdateUser(int id, UsersViewModel user)
+        {
+            return await _userRespository.UpdateUser(id, user);
+        }
 
         #region server validators
         public bool CheckIfDniExistInDb(string dni)
@@ -83,6 +108,7 @@ namespace Banco_VVBA.Services.UserService
             }
             return aliasAux;
         }
+
         #endregion
     }
 }

@@ -25,55 +25,52 @@ namespace Banco_VVBA.Controllers
         }
         #endregion
         //POST:api/[controller]/createAccount
-        [HttpPost("CreateAccount")]
+        [HttpPost("createAccount")]
         public async Task<ActionResult<UserAccountsViewModel>> CreateAccount(UserAccountsViewModel model)
         {
-            var result =await _accountService.CreateAccount(model);
+            var result = await _accountService.CreateAccount(model);
             return result;
         }
         //Get the last IBAN
-        [HttpGet("FindLastIban")]
+        [HttpGet("findLastIban")]
         public int FindLastIban()
         {
             var result = _accountService.FindLastIban();
             return Convert.ToInt32(result);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // GET: api/Account/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        //Get all acounts
+        [HttpGet("getAllAccounts")]
+        public async Task<ActionResult<IEnumerable<UserAccountsViewModel>>> GetAllAccounts()
         {
-            return "value";
+            var result = await _accountService.GetAllAccounts();
+            return result;
+        }
+        //Get account by id
+        [HttpGet("findAccountById/{id}")]
+        public async Task<ActionResult<IEnumerable<UserAccountsViewModel>>> findAccountById(int id)
+        {
+            var result = await _accountService.findAccountById(id);
+            return result;
+        }
+        //get accounts by name user
+        [HttpGet("name/{name}")]
+        public async Task<IEnumerable<UserAccountsViewModel>> SearchByName(string name)
+        {
+            var result = await _accountService.SearchByName(name);
+            return result;
+        }
+        //update the account
+        [HttpPut("updateAccount/{id}")]
+        public async Task<ActionResult> updateAccount(int id, UserAccountsViewModel account)
+        {
+            if (id != account.AccountId)
+            {
+                return BadRequest();
+            }
+            await _accountService.updateAccount(account);
+            return Ok();
         }
 
-        // POST: api/Account
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
 
-        // PUT: api/Account/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

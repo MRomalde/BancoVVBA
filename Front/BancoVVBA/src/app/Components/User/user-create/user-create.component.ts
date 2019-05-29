@@ -1,28 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { User } from 'src/app/Modelos/user';
+import { UsersTypeAccess } from 'src/app/Modelos/UsersTypeAccess';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UserService } from 'src/app/Services/User/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { UsersTypeAccess } from 'src/app/Modelos/UsersTypeAccess';
-import { User } from 'src/app/Modelos/user';
 
 @Component({
-  selector: 'app-user-details',
-  templateUrl: './user-details.component.html',
-  styleUrls: ['./user-details.component.css']
+  selector: 'app-user-create',
+  templateUrl: './user-create.component.html',
+  styleUrls: ['./user-create.component.css']
 })
-export class UserDetailsComponent implements OnInit {
+export class UserCreateComponent implements OnInit {
+  userToRegister:User;
+  surnameName:string;
   alias:string=null;
   aliasExistInDb:boolean=true;
+  //it's a list because the back come as a list of an asynchronous operation
+  userToCreateAccount:User[];
   typeUserSelected:string="0";
   typeUserAccessList:UsersTypeAccess[];
-  user:User[];
-  nameOfUser:string;
-  surnameOfUser:string;
-  dniOfUser:string;
-  mailOfUser:string;
-  loginOfUser:string;
-
 
   constructor(private fb: FormBuilder, private userService:UserService,private router:Router,
     private toastr:ToastrService,private route: ActivatedRoute,) { }
@@ -40,26 +37,33 @@ export class UserDetailsComponent implements OnInit {
     },{validator:this.ComparePasswords}),
     UserTypeAccess:['',Validators.required]
     });
-
-
   ngOnInit() {
     this.GetAllUserTypeAccess();
-    this.GetUserById();
   }
-  GetUserById() {
-    const userId=+this.route.snapshot.paramMap.get("id");
-    this.userService.GetUserById(userId).subscribe(userList=>{
-      this.user=userList;
-      //we have to do it with strings instead of an user aux because the copy 
-      //of objects are a reference copy not a value copy so if i have an user
-      //aux, the control and the value of the user its the same all the time
-      this.dniOfUser=this.user[0].dni;
-      this.mailOfUser=this.user[0].mail;
-      this.loginOfUser=this.user[0].login;
-      this.nameOfUser=this.user[0].surnameName.split(',')[1];
-      this.surnameOfUser=this.user[0].surnameName.split(',')[0];
-    });
+
+  Register(){
+    this.surnameName=this.formModel.value.Surname +","+this.formModel.value.Name;
+    this.alias=this.surnameName.substring(0,2) + this.surnameName.substring(this.surnameName.length-2);
+    this.userService.AliasExistInDb(this.alias).subscribe(data=>{
+      this.alias=data;
+    //if you need to use the values of the subscribe, you need to put all your behind code inside it   
+    //asign the form values to the user
+    this.userToRegister=new User(this.surnameName,this.alias,this.formModel.value.UserName,
+    this.formModel.value.Passwords.Password,this.formModel.value.Dni,this.formModel.value.Telephone,
+    this.formModel.value.Email,Number(this.typeUserSelected));
+    
+    //call to the service to register user
+    this.userService.CreateUserFromRegister(this.userToRegister).subscribe((res:any)=>{
+      //find the user created and then create his account  in the back
+      this.formModel.reset();
+      this.toastr.success("New user created!","Registration successful");
+      this.router.navigate(["/user/users"]);
+    },
+    err=>{console.log(err)});
+  })
   }
+
+
 
   GetAllUserTypeAccess(){
     this.userService.GetAllUserTypeAccess().subscribe(res=>this.typeUserAccessList=res);
@@ -79,7 +83,7 @@ export class UserDetailsComponent implements OnInit {
     return new Promise(res=>{
     var dniControlValue=fb.value;
     this.userService.DniExistInDb(dniControlValue).subscribe(data=>{
-      if(data && this.user[0].dni!=this.dniOfUser){       
+      if(data){
         fb.setErrors({DniExist:true});
       }
       else{
@@ -93,7 +97,7 @@ export class UserDetailsComponent implements OnInit {
     return new Promise(res=>{
       var loginControlValue=fb.value;
       this.userService.LoginExistInDb(loginControlValue).subscribe(data=>{
-        if(data && this.user[0].login!=this.loginOfUser)
+        if(data)
           fb.setErrors({LoginExist:true});
         else
           fb.setErrors(null);
@@ -106,7 +110,7 @@ export class UserDetailsComponent implements OnInit {
     return new Promise(res=>{
       var emailControlValue=fb.value;
       this.userService.EmailExistInDb(emailControlValue).subscribe(data=>{
-        if(data && this.user[0].mail!=this.mailOfUser)
+        if(data)
           fb.setErrors({EmailExist:true});
         else
           fb.setErrors(null);
@@ -114,24 +118,4 @@ export class UserDetailsComponent implements OnInit {
 
     })
   }
-  Save(){
-    this.user[0].surnameName=this.surnameOfUser+","+this.nameOfUser;
-    this.alias=this.user[0].surnameName.substring(0,2) + this.user[0].surnameName.substring(this.user[0].surnameName.length-2);
-    this.userService.AliasExistInDb(this.alias).subscribe(data=>{
-      this.alias=data;
-      this.user[0].alias=this.alias;
-    //call to the service to update user
-    this.userService.UpdateUser(this.user[0]).subscribe((res:any)=>{
-      //find the user created and then create his account  in the back
-      this.formModel.reset();
-      this.toastr.success("El usuario ha sido cambiado","Editado con exito");
-      this.router.navigate(["/user/users"]);
-    },
-    err=>{console.log(err)});
-  })
-  }
-
-
-
-
 }

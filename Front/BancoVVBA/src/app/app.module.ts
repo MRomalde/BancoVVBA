@@ -17,7 +17,10 @@ import { ToastrModule } from "ngx-toastr";
 import { MyAccountComponent } from './Components/User/my-account/my-account.component';
 import { UserDetailsComponent } from './Components/User/user-details/user-details.component';
 import { SearchComponent } from './Components/User/search/search.component';
-import { ConfirmationPopoverModule } from 'angular-confirmation-popover'
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { UserCreateComponent } from './Components/User/user-create/user-create.component';
+import { AccountDetailsComponent } from './Components/Cuentas/account-details/account-details.component';
+import { AccountSearchComponent } from './Components/Cuentas/account-search/account-search.component'
 
 @NgModule({
   declarations: [
@@ -32,6 +35,9 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover'
     MyAccountComponent,
     UserDetailsComponent,
     SearchComponent,
+    UserCreateComponent,
+    AccountDetailsComponent,
+    AccountSearchComponent,
 
   ],
   imports: [

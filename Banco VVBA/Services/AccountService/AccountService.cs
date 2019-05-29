@@ -34,9 +34,31 @@ namespace Banco_VVBA.Services.AccountService
             var result = await _accountRespository.CreateAccount(model);
             return result;
         }
+        public async Task<ActionResult<IEnumerable<UserAccountsViewModel>>> GetAllAccounts()
+        {
+            var result = await _accountRespository.GetAllAccounts();
+            return result;
+        }
+
+        public async Task<ActionResult<IEnumerable<UserAccountsViewModel>>> findAccountById(int id)
+        {
+            var result = await _accountRespository.findAccountById(id);
+            return result;
+        }
+
+        public async Task<ActionResult> updateAccount(UserAccountsViewModel account)
+        {
+            return await _accountRespository.updateAccount(account);
+        }
+
+        public async Task<IEnumerable<UserAccountsViewModel>> SearchByName(string name)
+        {
+            var result = await _accountRespository.SearchByName(name);
+            return result;
+        }
 
         #region Create account
-        internal  void CreateAccountFromRegister(string dni)
+        internal void CreateAccountFromRegister(string dni)
         {
             
             user = _userRepository.FindUserByDni(dni);
