@@ -1,3 +1,45 @@
-<p>
-  operations works!
-</p>
+<div style="margin-top: 10px" class="row">
+<a routerLink="/user/create" class="btn-floating btn-large bg-primary" title="Añadir operacion">
+  <i class="material-icons left">add_circle</i></a>
+  <div class="col-5"></div>
+  <label class="col-2">Seleccione la cuenta: </label>
+  <form [formGroup]="formModel" class="col-4">
+    <select class=" custom-select" style="display:block;"  formControlName="selectAccounts" (change)="GetOpersByAccountId()" >
+    <option>Todos</option>
+    <option *ngFor="let acc of accounts" value="{{acc.accountId}}">
+      {{acc.user.surnameName}}
+    </option>
+  </select>
+</form>
+</div>
+<ul>
+<div class="row underline" style="margin-bottom: 0">
+  <div class="row col-11" style="margin-top: 10px">
+     <div class="col-sm-3"><span>Nombre</span></div>
+     <div class="col-sm-1 col-md-2">Fecha</div>
+     <div class="col-sm-2 col-md-4">Mensaje</div>
+     <div class="col-sm-2 col-md-1">Concepto</div>
+     <div class="col-sm-1 col-md-2">Cantidad</div>
+   </div>
+   <div class="col-sm-1 marginLeft paddingRight" style="margin-top: 10px">Borrar</div>
+</div>
+<li *ngFor="let oper of operations" class="row z-depth-1 grey lighten-4">
+  <a class="col-11 row" routerLink="/oper/details/{{oper.operationId}}">
+   <div class="col-3">{{oper.account.user.surnameName}}</div>
+   <div class="col-1 col-md-2">{{oper.date}}</div>
+   <div class="col-2 col-md-4">{{oper.message}}</div>
+   <div class="col-2 col-md-1">{{oper.concept}}</div>
+   <div class="col-2 col-md-2">{{oper.amount}}</div>
+  </a>
+  <div class="col-1"><button class="btn red"
+     title="Borrar usuario"
+     mwlConfirmationPopover
+     popoverTitle="Eliminar"
+     popoverMessage="¿Desea eliminar la operacion de {{oper.account.user.surnameName}}?"
+     placement="left"
+     (confirm)="DeleteOper(oper)"
+     (cancel)="cancelClicked=true"
+     >
+   <i class="material-icons">delete</i></button></div>
+</li>
+</ul>

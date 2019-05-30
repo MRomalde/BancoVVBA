@@ -17,7 +17,7 @@ export class AccountDetailsComponent implements OnInit {
     private toastr:ToastrService,private route: ActivatedRoute,) { }
 
     formModel=this.fb.group({
-      Balance:['',[Validators.required,Validators.min(0)]],
+      Balance:['',[Validators.required,Validators.min(0),Validators.max(999999999)]],
       Iban:['',[Validators.required]],
     });
 

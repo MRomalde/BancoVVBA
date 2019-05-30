@@ -1,11 +1,11 @@
 import { Account } from './account';
 
 export class Operation{
-    OperationId:number;
-    Date:Date;
-    Concept:string;
-    Message:string;
-    Amount:number;
-    AccountId:number;
-    Account:Account;
+    operationId:number;
+    date:Date;
+    concept:string;
+    message:string;
+    amount:number;
+    accountId:number;
+    account:Account;
 }

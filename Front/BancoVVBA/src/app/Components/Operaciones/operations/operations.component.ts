@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Account } from 'src/app/Modelos/account';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { OperationService } from 'src/app/Services/Operation/operation.service';
+import { ToastrService } from 'ngx-toastr';
+import { AccountService } from 'src/app/Services/Account/account.service';
+import { Operation } from 'src/app/Modelos/operation';
 
 @Component({
   selector: 'app-operations',
@@ -7,9 +13,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OperationsComponent implements OnInit {
 
-  constructor() { }
+  accountSelected:string="0";
+  accounts:Account[];
+  operations:Operation[];
+  accountId:number;
+  constructor(private operService:OperationService,private toastr:ToastrService,
+    private fb:FormBuilder,private accService:AccountService) { }
+
+    formModel=this.fb.group({
+      selectAccounts:['Todos']
+    });
+
 
   ngOnInit() {
+    this.GetAllAccountsToLoadSelect();
+    
+    
   }
 
+   GetAllAccountsToLoadSelect(){
+   this.accService.GetAllAccounts().subscribe(res=>{
+     this.accounts=res;
+     this.GetOpersByAccountId();
+  });
+  }
+
+  GetOpersByAccountId(){
+    if(this.formModel.value.selectAccounts=="Todos"){
+      this.operService.GetAllOperations().subscribe(res=>{
+        this.operations=res;
+      });
+    }
+    else{
+      this.accountId=this.formModel.value.selectAccounts;
+      console.log(this.accountId);
+      this.operService.GetOperationByAccountId(this.accountId).subscribe(res=>{
+        this.operations=res;
+      });
+    }
+  }
+  
 }

@@ -13,6 +13,7 @@ namespace Banco_VVBA.Services.AccountService
         int FindLastIban();
         Task<ActionResult<IEnumerable<UserAccountsViewModel>>> GetAllAccounts();
         Task<ActionResult<IEnumerable<UserAccountsViewModel>>> findAccountById(int id);
+        Task<UserAccountsViewModel> findAccountToUpdateById(int id);
         Task<ActionResult> updateAccount(UserAccountsViewModel account);
         Task<IEnumerable<UserAccountsViewModel>> SearchByName(string name);
     }

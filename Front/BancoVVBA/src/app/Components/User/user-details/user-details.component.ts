@@ -22,6 +22,8 @@ export class UserDetailsComponent implements OnInit {
   dniOfUser:string;
   mailOfUser:string;
   loginOfUser:string;
+  userAux:User=JSON.parse(localStorage.getItem("currentUser"));
+  canChangeUserTypeAccess:Boolean=true;
 
 
   constructor(private fb: FormBuilder, private userService:UserService,private router:Router,
@@ -38,11 +40,13 @@ export class UserDetailsComponent implements OnInit {
         Password:['',[Validators.required]],
         ConfirmPassword:['',Validators.required]
     },{validator:this.ComparePasswords}),
-    UserTypeAccess:['',Validators.required]
+    //the number one is a default value
+    UserTypeAccess:[1,Validators.required]
     });
 
 
   ngOnInit() {
+    this.canChangeUserTypeAccess==true;
     this.GetAllUserTypeAccess();
     this.GetUserById();
   }
@@ -58,6 +62,7 @@ export class UserDetailsComponent implements OnInit {
       this.loginOfUser=this.user[0].login;
       this.nameOfUser=this.user[0].surnameName.split(',')[1];
       this.surnameOfUser=this.user[0].surnameName.split(',')[0];
+      this.CantChangeUserTypeAccess(this.dniOfUser);
     });
   }
 
@@ -75,6 +80,11 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
+  CantChangeUserTypeAccess(dni:string){
+    if(this.userAux.dni==dni){     
+      this.canChangeUserTypeAccess=false;
+    }
+  }
   DniExistInDb(fb:FormGroup){
     return new Promise(res=>{
     var dniControlValue=fb.value;

@@ -105,7 +105,7 @@ export class RegisterComponent implements OnInit {
     this.userService.CreateUserFromRegister(this.userToRegister).subscribe((res:any)=>{
       //find the user created and then create his account  in the back
       this.formModel.reset();
-      this.toastr.success("New user created!","Registration successful");
+      this.toastr.success("Nuevo usuario creado","Registrado con exito");
       this.router.navigate(["/user/login"]);
     },
     err=>{console.log(err)});

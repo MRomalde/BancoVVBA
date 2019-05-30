@@ -45,7 +45,7 @@
               </div>
               <div class="form-group required separated">
                <input type="text" class="form-control" #userName
-                placeholder="Username" formControlName="UserName">
+                placeholder="Username" formControlName="UserName" maxlength="15">
                 <label class="text-danger" *ngIf="formModel.get('UserName').touched && formModel.get('UserName').errors?.required">El campo username es obligatorio</label>
                 <label class="text-danger" *ngIf="formModel.get('UserName').touched && formModel.get('UserName').errors?.LoginExist">Ya existe un username con ese valor</label>
               </div>
@@ -58,7 +58,7 @@
               </div>
               <div class="form-group required separated">
                 <input type="password" class="form-control"
-                placeholder="Confirm password" formControlName="ConfirmPassword">
+                placeholder="Confirm password" formControlName="ConfirmPassword" maxlength="25">
                 <label class="text-danger" *ngIf="formModel.get('Passwords.ConfirmPassword').touched && formModel.get('Passwords.ConfirmPassword').errors?.required">El campo confirm password es obligatorio</label>
                 <label class="text-danger" *ngIf="formModel.get('Passwords.ConfirmPassword').touched && formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Las contraseñas no coinciden</label>
               </div>

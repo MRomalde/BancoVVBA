@@ -56,6 +56,12 @@ namespace Banco_VVBA.Repositories
             return Ok();
         }
 
+        internal async Task<UserAccountsViewModel> findAccountToUpdateById(int id)
+        {
+            var account = await _context.Accounts.FindAsync(id);
+            return account;
+        }
+
         internal async Task<IEnumerable<UserAccountsViewModel>> SearchByName(string name)
         {
             var result = await _context.Accounts.Include(acc=>acc.User).Where(acc=>acc.User.SurnameName.Contains(name)).ToListAsync();

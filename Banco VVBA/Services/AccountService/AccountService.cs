@@ -45,9 +45,15 @@ namespace Banco_VVBA.Services.AccountService
             var result = await _accountRespository.findAccountById(id);
             return result;
         }
+        public async Task<UserAccountsViewModel> findAccountToUpdateById(int id)
+        {
+            var result = await _accountRespository.findAccountToUpdateById(id);
+            return result;
+        }
 
         public async Task<ActionResult> updateAccount(UserAccountsViewModel account)
         {
+            account.Balance = Math.Round(account.Balance, 2);
             return await _accountRespository.updateAccount(account);
         }
 
@@ -91,6 +97,8 @@ namespace Banco_VVBA.Services.AccountService
             return numAux;
 
         }
+
+
         #endregion
 
 

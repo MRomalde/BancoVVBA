@@ -11,6 +11,7 @@
                   <input type="number"  [(ngModel)]="account[0].balance" class="form-control" 
                   placeholder="fondo" formControlName="Balance">
                   <label class="text-danger" *ngIf="formModel.get('Balance').touched && formModel.get('Balance').errors?.min">El minimo de dinero en la cuenta es 0</label>
+                  <label class="text-danger" *ngIf="formModel.get('Balance').touched && formModel.get('Balance').errors?.max">El maximo de dinero en la cuenta puede ser 999.999.999</label>
                 </div>
                 <div class="form-group required">
                   <input class="form-control" type="text"  [(ngModel)]="account[0].iban"
