@@ -13,7 +13,7 @@
      </div>
      <div class="col-sm-1 marginLeft paddingRight" style="margin-top: 10px">Borrar</div>
   </div>
-  <li *ngFor="let user of userList" class="row z-depth-1 grey lighten-4">
+  <li *ngFor="let user of userList | paginate: {itemsPerPage:7, currentPage:p}" class="row z-depth-1 grey lighten-4">
     <a class="col-11 row" routerLink="/user/details/{{user.userId}}">
      <div class="col-3">{{user.surnameName}}</div>
      <div class="col-1 col-md-1">{{user.alias}}</div>
@@ -34,4 +34,6 @@
      <i class="material-icons">highlight_off</i></button></div>
   </li>
 </ul>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
 

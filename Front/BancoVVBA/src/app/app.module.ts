@@ -20,7 +20,10 @@ import { SearchComponent } from './Components/User/search/search.component';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { UserCreateComponent } from './Components/User/user-create/user-create.component';
 import { AccountDetailsComponent } from './Components/Cuentas/account-details/account-details.component';
-import { AccountSearchComponent } from './Components/Cuentas/account-search/account-search.component'
+import { AccountSearchComponent } from './Components/Cuentas/account-search/account-search.component';
+import { OperationDetailsComponent } from './Components/Operaciones/operation-details/operation-details.component';
+import { OperationCreateComponent } from './Components/Operaciones/operation-create/operation-create.component'
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,8 @@ import { AccountSearchComponent } from './Components/Cuentas/account-search/acco
     UserCreateComponent,
     AccountDetailsComponent,
     AccountSearchComponent,
+    OperationDetailsComponent,
+    OperationCreateComponent,
 
   ],
   imports: [
@@ -49,6 +54,7 @@ import { AccountSearchComponent } from './Components/Cuentas/account-search/acco
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     ConfirmationPopoverModule.forRoot({confirmButtonType: 'danger'}),
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

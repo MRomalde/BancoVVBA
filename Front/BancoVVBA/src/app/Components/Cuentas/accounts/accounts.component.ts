@@ -11,7 +11,7 @@ export class AccountsComponent implements OnInit {
 
   accountList:Account[];
   constructor(private accService:AccountService) { }
-
+  p:number=1;
   ngOnInit() {
     this.GetAllAccounts();
   }

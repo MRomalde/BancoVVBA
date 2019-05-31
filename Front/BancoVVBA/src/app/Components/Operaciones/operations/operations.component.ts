@@ -17,6 +17,7 @@ export class OperationsComponent implements OnInit {
   accounts:Account[];
   operations:Operation[];
   accountId:number;
+  p:number=1;
   constructor(private operService:OperationService,private toastr:ToastrService,
     private fb:FormBuilder,private accService:AccountService) { }
 
@@ -46,7 +47,6 @@ export class OperationsComponent implements OnInit {
     }
     else{
       this.accountId=this.formModel.value.selectAccounts;
-      console.log(this.accountId);
       this.operService.GetOperationByAccountId(this.accountId).subscribe(res=>{
         this.operations=res;
       });

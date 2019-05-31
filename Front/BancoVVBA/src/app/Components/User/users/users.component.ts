@@ -13,6 +13,7 @@ export class UsersComponent implements OnInit {
   userList: User[];
   numberOfAdmins:Number;
   userToDelete:User;
+  p:number=1;
   constructor(private userService:UserService,private toastr:ToastrService) { }
 
   ngOnInit() {

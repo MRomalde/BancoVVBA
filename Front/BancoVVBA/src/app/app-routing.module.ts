@@ -10,6 +10,8 @@ import { MyAccountComponent } from './Components/User/my-account/my-account.comp
 import { UserDetailsComponent } from './Components/User/user-details/user-details.component';
 import { UserCreateComponent } from './Components/User/user-create/user-create.component';
 import { AccountDetailsComponent } from './Components/Cuentas/account-details/account-details.component';
+import { OperationDetailsComponent } from './Components/Operaciones/operation-details/operation-details.component';
+import { OperationCreateComponent } from './Components/Operaciones/operation-create/operation-create.component';
 
 const routes: Routes = [
   {path:"user/login", component: LoginComponent},
@@ -21,6 +23,8 @@ const routes: Routes = [
   {path:"account/accounts", component:AccountsComponent},
   {path:"account/details/:id", component:AccountDetailsComponent},
   {path:"operation/operations", component:OperationsComponent},
+  {path:"operation/details/:id", component:OperationDetailsComponent},
+  {path:"operation/create", component:OperationCreateComponent},
   {path:"commission/commissions", component:CommissionsComponent},
   {path: '', redirectTo: "/user/login", pathMatch: 'full'}
   
