@@ -66,16 +66,17 @@
             <div class="form-row">
               <div class="form-group" style="margin-left: 30%">
                   <label for="typeUserSelectedCreate">Elija el tipo de usuario</label>
-                <select style="display:block;" id="typeUserSelectedCreate" formControlName="UserTypeAccess" [(ngModel)]="typeUserSelected">
+                <select style="display:block;" id="typeUserSelectedCreate" formControlName="UserTypeAccess">
+                  <option disabled>Tipo de usuario</option>
                   <option *ngFor="let typeUserAccess of typeUserAccessList" value="{{typeUserAccess.typeAccessId}}">
                     {{typeUserAccess.description}}
                   </option>
                 </select>
-                <label class="text-danger" *ngIf="formModel.get('UserTypeAccess').touched && typeUserSelected=='0'">Debe elegir un tipo de usuario</label>
+                <label class="text-danger" *ngIf="formModel.get('UserTypeAccess').touched && formModel.get('UserTypeAccess').value=='Tipo de usuario'">Debe elegir un tipo de usuario</label>
               </div>
             </div>
               <div class="form-group">
-              <button type="submit" class="btn btn-lg btn-block" [disabled]="!formModel.valid || typeUserSelected=='0'">
+              <button type="submit" class="btn btn-lg btn-block" [disabled]="!formModel.valid || formModel.get('UserTypeAccess').value=='Tipo de usuario'">
                 <i class="material-icons left">save</i>Guardar
               </button>
               </div>

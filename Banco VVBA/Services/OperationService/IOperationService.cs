@@ -10,8 +10,11 @@ namespace Banco_VVBA.Services.OperationService
     interface IOperationService
     {
         Task<ActionResult<IEnumerable<OperationsViewModel>>> GetAllOperations();
-        Task<ActionResult<IEnumerable<OperationsViewModel>>> GetOperationById(int id);
+        Task<IEnumerable<OperationsViewModel>> GetOperationById(int id);
         Task<ActionResult<IEnumerable<OperationsViewModel>>> GetOperationByAccountId(int accountId);
         Task<ActionResult> CreateOperation(OperationsViewModel model);
+        Task<OperationsViewModel> GetOperationByIdToDelete(int id);
+        Task<ActionResult> DeleteOper(OperationsViewModel oper);
+        Task<ActionResult> UpdateOper(OperationsViewModel oper);
     }
 }

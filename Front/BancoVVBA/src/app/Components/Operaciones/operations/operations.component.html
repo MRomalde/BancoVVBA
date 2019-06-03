@@ -26,7 +26,7 @@
 <li *ngFor="let oper of operations | paginate: {itemsPerPage:7, currentPage:p}" class="row z-depth-1 grey lighten-4">
   <a class="col-11 row" routerLink="/operation/details/{{oper.operationId}}">
    <div class="col-3">{{oper.account.user.surnameName}}</div>
-   <div class="col-2 col-md-2">{{oper.date}}</div>
+   <div class="col-2 col-md-2">{{oper.date | date:'dd/MM/yyyy'}}.</div>
    <div class="col-2 col-md-5">{{oper.message}}</div>
    <div class="col-2 col-md-1">{{oper.concept}}</div>
    <div class="col-2 col-md-1">{{oper.amount}}</div>

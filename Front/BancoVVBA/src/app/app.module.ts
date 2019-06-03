@@ -24,7 +24,7 @@ import { AccountSearchComponent } from './Components/Cuentas/account-search/acco
 import { OperationDetailsComponent } from './Components/Operaciones/operation-details/operation-details.component';
 import { OperationCreateComponent } from './Components/Operaciones/operation-create/operation-create.component'
 import {NgxPaginationModule} from 'ngx-pagination';
-
+import {DatePipe} from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +56,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ConfirmationPopoverModule.forRoot({confirmButtonType: 'danger'}),
     NgxPaginationModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

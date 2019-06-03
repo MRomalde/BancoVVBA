@@ -30,8 +30,6 @@ export class UsersComponent implements OnInit {
     
     this.userService.GetUserById(user.userId).subscribe(res=>{
     this.userToDelete=JSON.parse(localStorage.getItem("currentUser"));
-    console.log(JSON.parse(localStorage.getItem("currentUser")));
-    console.log(user);
       if(user.typeAccessId==1){
         if(user.userId==this.userToDelete.userId)
           this.toastr.error("No se puede borrar a uno mismo","Borrado incompleto");

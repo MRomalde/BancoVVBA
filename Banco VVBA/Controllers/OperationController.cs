@@ -44,18 +44,50 @@ namespace Banco_VVBA.Controllers
 
         //Get:api/[controller]/getOperationById/{id}
         [HttpGet("getOperationById/{id}")]
-        public async Task<ActionResult<IEnumerable<OperationsViewModel>>> GetOperationById(int id)
+        public async Task<IEnumerable<OperationsViewModel>> GetOperationById(int id)
         {
             var result = await _operService.GetOperationById(id);
-            return Ok(result);
+            return result;
         }
 
         //Post:api/[controller]/createOperation
         [HttpPost("createOperation")]
         public async Task<ActionResult> CreateOperation(OperationsViewModel model)
         {
+            if (model.Message == "") {
+                if (model.Concept == "Salida")
+                {
+                    model.Message = "Retirada de dinero";
+                }
+                else
+                {
+                    model.Message = "Entrada de dinero";
+                }
+            }
             var result = await _operService.CreateOperation(model);
             return result;
+        }
+        //Put:api/[controller]/updateOperation/{id}
+        [HttpPut("updateOperation/{id}")]
+        public async Task<IActionResult> UpdateOperation(int id, OperationsViewModel oper)
+        {
+            if (id != oper.OperationId)
+            {
+                return BadRequest();
+            }
+            await _operService.UpdateOper(oper);
+            return Ok();
+        }
+        //Delete:api/[controller]/deleteById
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult> DeleteById(int id)
+        {
+            var oper = await _operService.GetOperationByIdToDelete(id);
+            if (oper == null)
+                return NotFound();
+
+            await _operService.DeleteOper(oper);
+            return Ok();
         }
 
     }

@@ -35,7 +35,7 @@ export class UserCreateComponent implements OnInit {
         Password:['',[Validators.required]],
         ConfirmPassword:['',Validators.required]
     },{validator:this.ComparePasswords}),
-    UserTypeAccess:['',Validators.required]
+    UserTypeAccess:['Tipo de usuario',Validators.required]
     });
   ngOnInit() {
     this.GetAllUserTypeAccess();
@@ -50,13 +50,13 @@ export class UserCreateComponent implements OnInit {
     //asign the form values to the user
     this.userToRegister=new User(this.surnameName,this.alias,this.formModel.value.UserName,
     this.formModel.value.Passwords.Password,this.formModel.value.Dni,this.formModel.value.Telephone,
-    this.formModel.value.Email,Number(this.typeUserSelected));
+    this.formModel.value.Email,this.formModel.value.UserTypeAccess);
     
     //call to the service to register user
     this.userService.CreateUserFromRegister(this.userToRegister).subscribe((res:any)=>{
       //find the user created and then create his account  in the back
       this.formModel.reset();
-      this.toastr.success("New user created!","Registration successful");
+      this.toastr.success("Nuevo usuario creado","Registrado con exito");
       this.router.navigate(["/user/users"]);
     },
     err=>{console.log(err)});

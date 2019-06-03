@@ -47,10 +47,14 @@ export class OperationsComponent implements OnInit {
     }
     else{
       this.accountId=this.formModel.value.selectAccounts;
-      this.operService.GetOperationByAccountId(this.accountId).subscribe(res=>{
+      this.operService.GetOperationsByAccountId(this.accountId).subscribe(res=>{
         this.operations=res;
       });
     }
   }
   
+  DeleteOper(oper:Operation){
+    this.operations=this.operations.filter(o=>o!==oper);
+          this.operService.DeleteOper(oper.operationId).subscribe(res=>this.toastr.info("Operacion borrada","Borrar"));
+  }
 }

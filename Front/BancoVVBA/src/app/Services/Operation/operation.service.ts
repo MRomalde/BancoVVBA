@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Operation } from 'src/app/Modelos/operation';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -19,10 +20,25 @@ export class OperationService {
     return this.http.get(this.Uri + "/getAllOperations").pipe(catchError(this.handleError<any>('GetAllOpers',[])));
   }
   //Get operations filtred by accounts
-  GetOperationByAccountId(accountId:number):Observable<any>{
+  GetOperationsByAccountId(accountId:number):Observable<any>{
     return this.http.get(this.Uri + "/getOperationByAccountId/" + accountId).pipe(catchError(this.handleError<any>('GetOpersFiltredById',[])));
   }
+  //Create an operation
+  CreateOperation(oper:Operation):Observable<any>{
+    return this.http.post(this.Uri + "/createOperation",oper).pipe(catchError(this.handleError<any>('CreateOper',[])));
+  }
+  //delete an operation
+  DeleteOper(operId:number):Observable<any>{
+    return this.http.delete(this.Uri + "/delete/" + operId).pipe(catchError(this.handleError<any>('DeleteOper',[])));
+  }
+  //get the current Operation
+  GetOperationByOperId(operId:number):Observable<any>{
+    return this.http.get(this.Uri + "/getOperationById/" + operId).pipe(catchError(this.handleError<any>('GetOperById',[])));
+  }
 
+  UpdateOperation(oper:Operation):Observable<any>{
+    return this.http.put(this.Uri + "/updateOperation/" + oper.operationId,oper).pipe(catchError(this.handleError<any>('UpdateOper',[])));
+  }
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

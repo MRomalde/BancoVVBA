@@ -26,6 +26,12 @@ namespace Banco_VVBA.Services.OperationService
             return await _operRepository.CreateOperation(model);
         }
 
+        public async Task<ActionResult> DeleteOper(OperationsViewModel oper)
+        {
+            return await _operRepository.DeleteOper(oper);
+        }
+
+
         #endregion
         public async Task<ActionResult<IEnumerable<OperationsViewModel>>> GetAllOperations()
         {
@@ -39,9 +45,21 @@ namespace Banco_VVBA.Services.OperationService
             return result;
         }
 
-        public async Task<ActionResult<IEnumerable<OperationsViewModel>>> GetOperationById(int id)
+        public async Task<IEnumerable<OperationsViewModel>> GetOperationById(int id)
         {
             var result = await _operRepository.GetOperationById(id);
+            return result;
+        }
+
+        public async Task<OperationsViewModel> GetOperationByIdToDelete(int id)
+        {
+            var result = await _operRepository.GetOperationByIdToDelete(id);
+            return result;
+        }
+
+        public async Task<ActionResult> UpdateOper(OperationsViewModel oper)
+        {
+            var result= await _operRepository.UpdateOper(oper);
             return result;
         }
     }

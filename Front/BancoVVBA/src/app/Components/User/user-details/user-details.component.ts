@@ -54,6 +54,7 @@ export class UserDetailsComponent implements OnInit {
     const userId=+this.route.snapshot.paramMap.get("id");
     this.userService.GetUserById(userId).subscribe(userList=>{
       this.user=userList;
+      console.log(this.user);
       //we have to do it with strings instead of an user aux because the copy 
       //of objects are a reference copy not a value copy so if i have an user
       //aux, the control and the value of the user its the same all the time
