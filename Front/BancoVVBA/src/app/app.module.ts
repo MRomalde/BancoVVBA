@@ -25,6 +25,8 @@ import { OperationDetailsComponent } from './Components/Operaciones/operation-de
 import { OperationCreateComponent } from './Components/Operaciones/operation-create/operation-create.component'
 import {NgxPaginationModule} from 'ngx-pagination';
 import {DatePipe} from '@angular/common';
+import { CommissionDetailsComponent } from './Components/Comisiones/commission-details/commission-details.component';
+import { CommissionCreateComponent } from './Components/Comisiones/commission-create/commission-create.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +45,8 @@ import {DatePipe} from '@angular/common';
     AccountSearchComponent,
     OperationDetailsComponent,
     OperationCreateComponent,
+    CommissionDetailsComponent,
+    CommissionCreateComponent,
 
   ],
   imports: [

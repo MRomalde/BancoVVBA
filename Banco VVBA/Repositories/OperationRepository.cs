@@ -79,6 +79,7 @@ namespace Banco_VVBA.Repositories
                 if (elderElement.Message != oper.Message)
                     elderElement.Message = oper.Message;
 
+                //this is the same but it gives an error when 2 elements with the same id are being tracked
                 //_context.Entry(oper).State = EntityState.Modified;
 
             }

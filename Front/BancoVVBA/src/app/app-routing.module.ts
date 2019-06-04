@@ -12,6 +12,8 @@ import { UserCreateComponent } from './Components/User/user-create/user-create.c
 import { AccountDetailsComponent } from './Components/Cuentas/account-details/account-details.component';
 import { OperationDetailsComponent } from './Components/Operaciones/operation-details/operation-details.component';
 import { OperationCreateComponent } from './Components/Operaciones/operation-create/operation-create.component';
+import { CommissionDetailsComponent } from './Components/Comisiones/commission-details/commission-details.component';
+import { CommissionCreateComponent } from './Components/Comisiones/commission-create/commission-create.component';
 
 const routes: Routes = [
   {path:"user/login", component: LoginComponent},
@@ -26,6 +28,8 @@ const routes: Routes = [
   {path:"operation/details/:id", component:OperationDetailsComponent},
   {path:"operation/create", component:OperationCreateComponent},
   {path:"commission/commissions", component:CommissionsComponent},
+  {path:"commission/details/:id", component:CommissionDetailsComponent},
+  {path:"commission/create", component:CommissionCreateComponent},
   {path: '', redirectTo: "/user/login", pathMatch: 'full'}
   
 ];
