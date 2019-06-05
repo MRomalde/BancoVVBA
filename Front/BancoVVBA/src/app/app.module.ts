@@ -27,6 +27,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {DatePipe} from '@angular/common';
 import { CommissionDetailsComponent } from './Components/Comisiones/commission-details/commission-details.component';
 import { CommissionCreateComponent } from './Components/Comisiones/commission-create/commission-create.component';
+import { AccountCommissionsComponent } from './Components/CuentasComisiones/account-commissions/account-commissions.component';
+import { AccountCommissionsCreateComponent } from './Components/CuentasComisiones/account-commissions-create/account-commissions-create.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +49,8 @@ import { CommissionCreateComponent } from './Components/Comisiones/commission-cr
     OperationCreateComponent,
     CommissionDetailsComponent,
     CommissionCreateComponent,
+    AccountCommissionsComponent,
+    AccountCommissionsCreateComponent,
 
   ],
   imports: [

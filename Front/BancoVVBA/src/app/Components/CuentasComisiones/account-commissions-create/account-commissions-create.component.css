@@ -1,5 +1,8 @@
+.separated{
+    margin-left: 5%
+}
 .card-img-top{
-    width: 30%
+    width: 40%
 }
 .btn:hover {
     color: #cfcfcf;

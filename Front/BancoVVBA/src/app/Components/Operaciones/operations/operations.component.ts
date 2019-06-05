@@ -55,6 +55,6 @@ export class OperationsComponent implements OnInit {
   
   DeleteOper(oper:Operation){
     this.operations=this.operations.filter(o=>o!==oper);
-          this.operService.DeleteOper(oper.operationId).subscribe(res=>this.toastr.info("Operacion borrada","Borrar"));
+    this.operService.DeleteOper(oper.operationId).subscribe(res=>this.toastr.info("Operacion borrada","Borrar"));
   }
 }

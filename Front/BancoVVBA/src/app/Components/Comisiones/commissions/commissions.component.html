@@ -1,4 +1,4 @@
-  <a routerLink="/user/create" class="btn-floating btn-large bg-primary" title="Añadir comision">
+  <a routerLink="/commission/create" class="btn-floating btn-large bg-primary" title="Añadir comision" style="margin-top: 10px">
     <i class="material-icons left">add_circle</i></a>
 <ul>
   <div class="row underline" style="margin-bottom: 0">
@@ -9,9 +9,9 @@
      <div class="col-sm-1 marginLeft paddingRight" style="margin-top: 10px">Borrar</div>
   </div>
   <li *ngFor="let com of commissions | paginate: {itemsPerPage:7, currentPage:p}" class="row z-depth-1 grey lighten-4">
-    <a class="col-11 row" routerLink="/user/details/{{user.userId}}">
-     <div class="col-3">{{com.description}}</div>
-     <div class="col-2 col-md-2">{{com.price}}</div>
+    <a class="col-11 row" routerLink="/commission/details/{{com.commissionId}}">
+     <div class="col-8">{{com.description}}</div>
+     <div class="col-3">{{com.price}} €</div>
     </a>
     <div class="col-1"><button class="btn red"
        title="Borrar usuario"
@@ -22,7 +22,7 @@
        (confirm)="DeleteCommission(com)"
        (cancel)="cancelClicked=true"
        >
-     <i class="material-icons">highlight_off</i></button></div>
+     <i class="material-icons">cancel_presentation</i></button></div>
   </li>
 </ul>
 <pagination-controls (pageChange)="p = $event"></pagination-controls>

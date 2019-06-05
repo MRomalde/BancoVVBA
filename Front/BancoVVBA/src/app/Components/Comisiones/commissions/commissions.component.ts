@@ -15,9 +15,15 @@ export class CommissionsComponent implements OnInit {
   constructor(private comService:CommissionService,private toastr:ToastrService) { }
 
   ngOnInit() {
+    this.GetCommissions();
   }
 
   GetCommissions(){
     this.comService.GetAllCommissions().subscribe(res=>this.commissions=res);
+  }
+
+  DeleteCommission(commission:Commission){
+  this.commissions=this.commissions.filter(com=>com!==commission);
+  this.comService.DeleteCommission(commission.commissionId).subscribe(res=>this.toastr.info("Comision borrada","Borrado"));
   }
 }

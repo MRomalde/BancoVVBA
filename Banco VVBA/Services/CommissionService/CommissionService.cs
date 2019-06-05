@@ -23,6 +23,7 @@ namespace Banco_VVBA.Services.CommissionService
 
         public async Task<ActionResult> CreateCommission(CommissionsViewModel model)
         {
+            model.Price = Math.Round(model.Price, 2);
             return await _comRepository.CreateCommission(model);
         }
 

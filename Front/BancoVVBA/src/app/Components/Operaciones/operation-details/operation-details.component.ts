@@ -38,6 +38,7 @@ export class OperationDetailsComponent implements OnInit {
       this.accounts=res;
     });
     this.GetCurrentOperation();
+
   }
 
   UpdateOperation(){
@@ -55,6 +56,7 @@ export class OperationDetailsComponent implements OnInit {
       //its a list because is Async
       this.currentOperation=res;
       this.date=this.datePipe.transform(this.currentOperation[0].date,"yyyy-MM-dd");      
+      this.GetMaxAmountOfTheOperationFirst();
     });
   }
 
@@ -82,7 +84,7 @@ export class OperationDetailsComponent implements OnInit {
       //depending on the account, for that we set the validator after
       this.formModel.valueChanges.subscribe(checked => {
         if (checked) {
-          this.formModel.controls.Amount.setValidators([Validators.required, Validators.max(this.maxAmountToCreateOperation)]);
+          this.formModel.controls.Amount.setValidators([Validators.required, Validators.max(this.maxAmountToCreateOperation),Validators.min(0.1)]);
         } else {
           this.formModel.controls.Amount.setValidators(null);
         }
@@ -92,6 +94,31 @@ export class OperationDetailsComponent implements OnInit {
     });
   }
 
+  //first the form is empty so to have the validations we need to look at the 
+  //account id that is the same of the select, and if the select change we call
+  //the other method
+  GetMaxAmountOfTheOperationFirst(){
+    this.accService.GetAccountById(this.currentOperation[0].accountId).subscribe(res=>{
+      this.acc=res[0];
+      if(this.formModel.value.SelectConcepto=="Entrada"){
+        this.maxAmountToCreateOperation=999999999-this.acc.balance;
+      }
+      else{
+        this.maxAmountToCreateOperation=this.acc.balance;
+      }
+      //first if some value changes, we add a validator, we cant add it in the form
+      //because the initial value of the max amount is 0 and we need the value 
+      //depending on the account, for that we set the validator after
+      this.formModel.valueChanges.subscribe(checked => {
+        if (checked) {
+          this.formModel.controls.Amount.setValidators([Validators.required, Validators.max(this.maxAmountToCreateOperation),Validators.min(0.1)]);
+        } else {
+          this.formModel.controls.Amount.setValidators(null);
+        }
+        this.formModel.controls.Amount.updateValueAndValidity();
+      });
 
+    });
+  }
 
 }

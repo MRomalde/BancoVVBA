@@ -42,7 +42,7 @@ namespace Banco_VVBA.Controllers
         //Post: api/[controller]/createCommission
         [HttpPost("createCommission")]
         public async Task<ActionResult> CreateCommission(CommissionsViewModel model)
-        { 
+        {
             await _comService.CreateCommission(model);
             return Ok();
         }

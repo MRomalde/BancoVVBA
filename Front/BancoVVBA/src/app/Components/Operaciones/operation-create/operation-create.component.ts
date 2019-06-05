@@ -79,7 +79,7 @@ export class OperationCreateComponent implements OnInit {
       //depending on the account, for that we set the validator after
       this.formModel.valueChanges.subscribe(checked => {
         if (checked) {
-          this.formModel.controls.Amount.setValidators([Validators.required, Validators.max(this.maxAmountToCreateOperation)]);
+          this.formModel.controls.Amount.setValidators([Validators.required, Validators.max(this.maxAmountToCreateOperation),Validators.min(0.1)]);
         } else {
           this.formModel.controls.Amount.setValidators(null);
         }
