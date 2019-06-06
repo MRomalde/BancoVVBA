@@ -45,11 +45,26 @@ namespace Banco_VVBA.Controllers
             var result = await _accountService.GetAllAccounts();
             return result;
         }
+        //Get all acounts except your acc
+        [HttpGet("getAllAccountsExceptYourAcc/{id}")]
+        public async Task<ActionResult<IEnumerable<UserAccountsViewModel>>> GetAllAccountsExceptYourAcc(int id)
+        {
+            var result = await _accountService.GetAllAccountsExceptYourAcc(id);
+            return result;
+        }
+
         //Get account by id
         [HttpGet("findAccountById/{id}")]
-        public async Task<ActionResult<IEnumerable<UserAccountsViewModel>>> findAccountById(int id)
+        public async Task<ActionResult<IEnumerable<UserAccountsViewModel>>> FindAccountById(int id)
         {
             var result = await _accountService.findAccountById(id);
+            return result;
+        }
+        //Get account by userId
+        [HttpGet("findAccountByUserId/{id}")]
+        public async Task<ActionResult<IEnumerable<UserAccountsViewModel>>> FindAccountByUserId(int id)
+        {
+            var result = await _accountService.findAccountByUserId(id);
             return result;
         }
         //get accounts by name user

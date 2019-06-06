@@ -16,14 +16,22 @@ import { CommissionDetailsComponent } from './Components/Comisiones/commission-d
 import { CommissionCreateComponent } from './Components/Comisiones/commission-create/commission-create.component';
 import { AccountCommissionsComponent } from './Components/CuentasComisiones/account-commissions/account-commissions.component';
 import { AccountCommissionsCreateComponent } from './Components/CuentasComisiones/account-commissions-create/account-commissions-create.component';
+import { MyAccountDetailsComponent } from './Components/User/my-account-details/my-account-details.component';
+import { MyAccountCreateOperComponent } from './Components/User/my-account-create-oper/my-account-create-oper.component';
+import { MyAccountCreateTransferComponent } from './Components/User/my-account-create-transfer/my-account-create-transfer.component';
+import { PasswordRecoveryComponent } from './Components/User/password-recovery/password-recovery.component';
 
 const routes: Routes = [
   {path:"user/login", component: LoginComponent},
   {path:"user/register", component:RegisterComponent},
+  {path:"user/passwordRecovery", component:PasswordRecoveryComponent},
   {path:"user/users" , component: UsersComponent},
   {path:"user/details/:id" , component: UserDetailsComponent},
   {path:"user/create", component:UserCreateComponent},
   {path:"user/myAccount", component:MyAccountComponent},
+  {path:"user/myAccount/details/:id", component:MyAccountDetailsComponent},
+  {path:"user/myAccount/createOper", component:MyAccountCreateOperComponent},
+  {path:"user/myAccount/createTransfer", component:MyAccountCreateTransferComponent},
   {path:"account/accounts", component:AccountsComponent},
   {path:"account/details/:id", component:AccountDetailsComponent},
   {path:"operation/operations", component:OperationsComponent},

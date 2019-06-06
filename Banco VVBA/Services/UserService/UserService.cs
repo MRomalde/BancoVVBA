@@ -109,6 +109,12 @@ namespace Banco_VVBA.Services.UserService
             return aliasAux;
         }
 
+        public async Task<IEnumerable<UsersViewModel>> FindUserByGmail(string gmail)
+        {
+            var result = await _userRespository.FindUserByGmail(gmail);
+            return result;
+        }
+
         #endregion
     }
 }

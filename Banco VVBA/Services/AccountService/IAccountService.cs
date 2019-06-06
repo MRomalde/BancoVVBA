@@ -16,5 +16,7 @@ namespace Banco_VVBA.Services.AccountService
         Task<UserAccountsViewModel> findAccountToUpdateById(int id);
         Task<ActionResult> updateAccount(UserAccountsViewModel account);
         Task<IEnumerable<UserAccountsViewModel>> SearchByName(string name);
+        Task<ActionResult<IEnumerable<UserAccountsViewModel>>> findAccountByUserId(int id);
+        Task<ActionResult<IEnumerable<UserAccountsViewModel>>> GetAllAccountsExceptYourAcc(int id);
     }
 }

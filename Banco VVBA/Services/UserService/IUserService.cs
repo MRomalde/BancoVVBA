@@ -23,5 +23,6 @@ namespace Banco_VVBA.Services.UserService
         Task<ActionResult<IEnumerable<UserTypeAccessViewModel>>> GetAllUserTypeAccess();
         Task<IEnumerable<UsersViewModel>> FindUserByIdAndReturnList(int id);
         Task<IActionResult> UpdateUser(int id, UsersViewModel user);
+        Task<IEnumerable<UsersViewModel>> FindUserByGmail(string gmail);
     }
 }

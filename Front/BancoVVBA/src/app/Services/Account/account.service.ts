@@ -21,9 +21,17 @@ export class AccountService {
   GetAllAccounts():Observable<any>{
     return this.http.get(this.Uri + "/getAllAccounts").pipe(catchError(this.handleError<any>('getAllAccounts',[])));
   }
+  //get all accounts except yours
+  GetAllAccountsExceptYours(accountId:number):Observable<any>{
+    return this.http.get(this.Uri + "/getAllAccountsExceptYourAcc/" +accountId).pipe(catchError(this.handleError<any>('getAllAccounts',[])));
+  }
   //get account by Id
   GetAccountById(accountId:number):Observable<any>{
     return this.http.get(this.Uri + "/findAccountById/"+ accountId).pipe(catchError(this.handleError<any>('getAccountById',[])));
+  }
+  //get account by Id
+  GetAccountByUserId(userId:number):Observable<any>{
+    return this.http.get(this.Uri + "/findAccountByUserId/"+ userId).pipe(catchError(this.handleError<any>('getAccountById',[])));
   }
   //Update account
   UpdateAccount(account:Account):Observable<any>{

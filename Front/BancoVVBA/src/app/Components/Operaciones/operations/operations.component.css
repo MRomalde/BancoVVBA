@@ -37,3 +37,7 @@ label{
   float: left;
   width: 100%
 }
+.btnExcel{
+  float: right;
+  background: #1F7043;
+}

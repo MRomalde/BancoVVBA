@@ -115,7 +115,14 @@ namespace Banco_VVBA.Repositories
                 var existLogin = _context.Users.Where(User => User.Login == login);
                 return existLogin;
             }
-            internal IQueryable<UsersViewModel> compareAlias(string alias)
+
+        internal async Task<IEnumerable<UsersViewModel>> FindUserByGmail(string gmail)
+        {
+            var result = await _context.Users.Where(User => User.Mail == gmail).ToListAsync();
+            return result;
+        }
+
+        internal IQueryable<UsersViewModel> compareAlias(string alias)
             {
                 var existAlias = _context.Users.Where(User => User.Alias == alias);
                 return existAlias;

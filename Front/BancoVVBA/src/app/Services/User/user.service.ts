@@ -23,6 +23,10 @@ export class UserService {
   GetUserById(userId:number):Observable<any>{
     return this.http.get(this.Uri + "/findUserById/" + userId).pipe(catchError(this.handleError<any>('getUserById',[])));
   }
+  //find user by id
+  GetUserByMail(mail:string):Observable<any>{
+    return this.http.get(this.Uri + "/findUserByMail/" + mail).pipe(catchError(this.handleError<any>('getUserById',[])));
+  }
 
   //Update user
   UpdateUser(user:User):Observable<any>{
@@ -41,6 +45,10 @@ export class UserService {
     return this.http.delete(this.Uri + "/delete/"+ userId).pipe(catchError(this.handleError<any>('Delete',[])));
   }
 
+  //Password recovery
+  PasswordRecovery(mail:string):Observable<any>{
+    return this.http.get(this.Uri+ "/passwordRecovery/" + mail).pipe(catchError(this.handleError<any>('register',[])));
+  }
   //Register
   CreateUserFromRegister(user:User):Observable<any>{
     return this.http.post(this.Uri+ "/register",user,httpOptions).pipe(catchError(this.handleError<any>('register',[])));

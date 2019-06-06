@@ -43,4 +43,9 @@
    <i class="material-icons">delete</i></button></div>
 </li>
 </ul>
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
+<div class="row">
+<pagination-controls (pageChange)="p = $event" class="col-3"></pagination-controls>
+<div class="col-4"></div>
+<div class="col-2"><input [(ngModel)]="nameOfExcelFile" placeholder="Nombre del archivo"></div>
+<button class="btn btnExcel col-3" (click)="ExportToExcel()"><i class="material-icons">import_export</i>Exportar a excel</button>
+</div>

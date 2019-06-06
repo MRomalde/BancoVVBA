@@ -39,7 +39,12 @@ namespace Banco_VVBA.Repositories
 
         internal async Task<ActionResult<IEnumerable<UserAccountsViewModel>>> GetAllAccounts()
         {
-            var result = await _context.Accounts.Include(acc=>acc.User).ToListAsync();
+            var result = await _context.Accounts.Include(acc => acc.User).ToListAsync();
+            return result;
+        }
+        internal async Task<ActionResult<IEnumerable<UserAccountsViewModel>>> GetAllAccountsExceptYourAcc(int id)
+        {
+            var result = await _context.Accounts.Include(acc=>acc.User).Where(acc=>acc.AccountId!=id).ToListAsync();
             return result;
         }
 
@@ -65,6 +70,12 @@ namespace Banco_VVBA.Repositories
         internal async Task<IEnumerable<UserAccountsViewModel>> SearchByName(string name)
         {
             var result = await _context.Accounts.Include(acc=>acc.User).Where(acc=>acc.User.SurnameName.Contains(name)).ToListAsync();
+            return result;
+        }
+
+        internal async Task<ActionResult<IEnumerable<UserAccountsViewModel>>> findAccountByUserId(int id)
+        {
+            var result = await _context.Accounts.Where(acc => acc.UserId == id).Include(acc => acc.User).ToListAsync();
             return result;
         }
     }

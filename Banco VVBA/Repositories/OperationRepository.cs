@@ -28,6 +28,7 @@ namespace Banco_VVBA.Repositories
             //create here an instance of the account service
             _accountService = new AccountService(_context, _configuration);
         }
+
         #endregion
         internal async Task<ActionResult<IEnumerable<OperationsViewModel>>> GetAllOperations()
         {

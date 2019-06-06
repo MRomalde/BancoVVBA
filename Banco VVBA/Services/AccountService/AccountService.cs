@@ -39,6 +39,12 @@ namespace Banco_VVBA.Services.AccountService
             var result = await _accountRespository.GetAllAccounts();
             return result;
         }
+        public async Task<ActionResult<IEnumerable<UserAccountsViewModel>>> GetAllAccountsExceptYourAcc(int id)
+        {
+            var result = await _accountRespository.GetAllAccountsExceptYourAcc(id);
+            return result;
+        }
+
 
         public async Task<ActionResult<IEnumerable<UserAccountsViewModel>>> findAccountById(int id)
         {
@@ -60,6 +66,12 @@ namespace Banco_VVBA.Services.AccountService
         public async Task<IEnumerable<UserAccountsViewModel>> SearchByName(string name)
         {
             var result = await _accountRespository.SearchByName(name);
+            return result;
+        }
+
+        public async Task<ActionResult<IEnumerable<UserAccountsViewModel>>> findAccountByUserId(int id)
+        {
+            var result = await _accountRespository.findAccountByUserId(id);
             return result;
         }
 

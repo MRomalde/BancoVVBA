@@ -1,54 +1,43 @@
 import { Component, OnInit } from '@angular/core';
 import { Operation } from 'src/app/Modelos/operation';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OperationService } from 'src/app/Services/Operation/operation.service';
-import { AccountService } from 'src/app/Services/Account/account.service';
 import { Account } from 'src/app/Modelos/account';
+import { User } from 'src/app/Modelos/user';
+import { FormBuilder, Validators } from '@angular/forms';
+import { OperationService } from 'src/app/Services/Operation/operation.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AccountService } from 'src/app/Services/Account/account.service';
+import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-operation-details',
-  templateUrl: './operation-details.component.html',
-  styleUrls: ['./operation-details.component.css']
+  selector: 'app-my-account-details',
+  templateUrl: './my-account-details.component.html',
+  styleUrls: ['./my-account-details.component.css']
 })
-export class OperationDetailsComponent implements OnInit {
+export class MyAccountDetailsComponent implements OnInit {
 
   maxAmountToCreateOperation:number;
   currentOperation:Operation[];
   acc:Account;
   accounts:Account[];
   date:string;
+  currentUser:User=JSON.parse(localStorage.getItem("currentUser"));
+  
+  constructor(
+    private fb: FormBuilder, private operService:OperationService,private router:Router,
+      private toastr:ToastrService,private route: ActivatedRoute,private accService:AccountService,
+      private datePipe: DatePipe) { }
 
-  constructor(private fb: FormBuilder, private operService:OperationService,private router:Router,
-    private toastr:ToastrService,private route: ActivatedRoute,private accService:AccountService,
-    private datePipe: DatePipe) { }
-
-  formModel=this.fb.group({
-    SelectConcepto:['',[Validators.required]],
-    SelectAccounts:['',[Validators.required]],
-    Date:['',[Validators.required]],
-    Amount:['',],
-    Message:['',],
-  });
-
-  ngOnInit() {   
-    this.accService.GetAllAccounts().subscribe(res=>{
-      this.accounts=res;
-    });
+      formModel=this.fb.group({
+        SelectConcepto:['',[Validators.required]],
+        Date:['',[Validators.required]],
+        Amount:['',],
+        Message:['',],
+      });
+      
+  ngOnInit() {
     this.GetCurrentOperation();
-
   }
-
-  UpdateOperation(){
-    this.currentOperation[0].date=this.formModel.value.Date;
-    this.operService.UpdateOperation(this.currentOperation[0]).subscribe(res=>{
-      this.toastr.success("Operacion editada con exito","Editar operacion");
-      this.router.navigate(["/operation/operations"]);
-    });
-  }
-
 
   GetCurrentOperation(){
     var operId=+this.route.snapshot.paramMap.get("id");
@@ -60,18 +49,8 @@ export class OperationDetailsComponent implements OnInit {
     });
   }
 
-  EnableSelectAccounts(){
-    //here we charge the select of accounts
-    this.accService.GetAllAccounts().subscribe(res=>{
-      this.accounts=res;  
-    });
-    if(this.formModel.value.SelectAccounts!='Elige una cuenta'){
-      this.GetMaxAmountOfTheOperation();
-    }
-  }
-
   GetMaxAmountOfTheOperation(){
-    this.accService.GetAccountById(this.formModel.value.SelectAccounts).subscribe(res=>{
+    this.accService.GetAccountByUserId(this.currentUser.userId).subscribe(res=>{
       this.acc=res[0];
       if(this.formModel.value.SelectConcepto=="Entrada"){
         this.maxAmountToCreateOperation=999999999-this.acc.balance;
@@ -120,6 +99,5 @@ export class OperationDetailsComponent implements OnInit {
 
     });
   }
-
 
 }

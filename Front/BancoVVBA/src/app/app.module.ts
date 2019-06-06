@@ -29,6 +29,11 @@ import { CommissionDetailsComponent } from './Components/Comisiones/commission-d
 import { CommissionCreateComponent } from './Components/Comisiones/commission-create/commission-create.component';
 import { AccountCommissionsComponent } from './Components/CuentasComisiones/account-commissions/account-commissions.component';
 import { AccountCommissionsCreateComponent } from './Components/CuentasComisiones/account-commissions-create/account-commissions-create.component';
+import { MyAccountDetailsComponent } from './Components/User/my-account-details/my-account-details.component';
+import { MyAccountCreateOperComponent } from './Components/User/my-account-create-oper/my-account-create-oper.component';
+import { MyAccountCreateTransferComponent } from './Components/User/my-account-create-transfer/my-account-create-transfer.component';
+import { PasswordRecoveryComponent } from './Components/User/password-recovery/password-recovery.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +56,11 @@ import { AccountCommissionsCreateComponent } from './Components/CuentasComisione
     CommissionCreateComponent,
     AccountCommissionsComponent,
     AccountCommissionsCreateComponent,
+    MyAccountDetailsComponent,
+    MyAccountCreateOperComponent,
+    MyAccountCreateTransferComponent,
+    PasswordRecoveryComponent,
+    
 
   ],
   imports: [
@@ -63,6 +73,7 @@ import { AccountCommissionsCreateComponent } from './Components/CuentasComisione
     BrowserAnimationsModule,
     ConfirmationPopoverModule.forRoot({confirmButtonType: 'danger'}),
     NgxPaginationModule,
+
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

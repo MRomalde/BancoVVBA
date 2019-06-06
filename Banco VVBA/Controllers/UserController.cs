@@ -8,6 +8,9 @@ using Banco_VVBA.Services.UserService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using MailKit.Net.Smtp;
+using MailKit;
+using MimeKit;
 
 namespace Banco_VVBA.Controllers
 {
@@ -47,7 +50,14 @@ namespace Banco_VVBA.Controllers
             var usersByName = await _userService.SearchByName(name);
             return usersByName;
         }
-        
+        //Get:api/[controller]/findUserByMail
+        [HttpGet("findUserByMail/{mail}")]
+        public async Task<IEnumerable<UsersViewModel>> FindUserByMail(string mail)
+        {
+            var user = await _userService.FindUserByGmail(mail);
+            return user;
+        }
+
         //Post:api/[controller]/login
         [HttpPost("login")]
         public async Task<ActionResult<IEnumerable<UsersViewModel>>> Login(LoginModel loginModel)
@@ -65,6 +75,57 @@ namespace Banco_VVBA.Controllers
             var result= await _userService.Register(userModel);
             return result;
         }
+        //Post:api/[controller]/passwordRecovery
+        [HttpGet("passwordRecovery/{mail}")]
+        public async Task<bool> PasswordRecovery(string mail)
+        {
+            var user = await _userService.FindUserByGmail(mail);
+            string NewPassword=GenerateNewPassword();
+            if (user.Any())
+            {
+                //instantiate mimemessage
+                var message = new MimeMessage();
+                //From address
+                message.From.Add(new MailboxAddress("BancoVVBA", "BancoVVBA@gmail.com"));
+                //To address
+                message.To.Add(new MailboxAddress(user.ElementAt(0).SurnameName, mail));
+                //Subject
+                message.Subject = "Recuperar Contraseña";
+                //Body
+                message.Body = new TextPart("plain")
+                {
+                    Text = "Hola Su nueva contraseña es: " + NewPassword
+                };
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, false);
+                    //have to create a gmail with that 
+                    client.Authenticate("BancoVVBA@gmail.com", "Everis2019");
+                    client.Send(message);
+                    client.Disconnect(true);
+
+                }
+                return true;
+            }
+            else
+                return false;
+        }
+
+        private string GenerateNewPassword()
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var stringChars = new char[8];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+            return finalString;
+        }
+
         //Put:api/[controller]/updateUser/{id}
         [HttpPut("updateUser/{id}")]
         public async Task<IActionResult> UpdateUser(int id,UsersViewModel user)
