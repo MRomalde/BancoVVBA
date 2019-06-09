@@ -36,6 +36,9 @@ export class RegisterComponent implements OnInit {
   });
 
   ngOnInit() {
+    if(localStorage.getItem("currentUser")!=null){
+      this.router.navigate(["/user/users"]);
+    }
     this.formModel.reset();
   }
 

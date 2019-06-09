@@ -20,28 +20,29 @@ import { MyAccountDetailsComponent } from './Components/User/my-account-details/
 import { MyAccountCreateOperComponent } from './Components/User/my-account-create-oper/my-account-create-oper.component';
 import { MyAccountCreateTransferComponent } from './Components/User/my-account-create-transfer/my-account-create-transfer.component';
 import { PasswordRecoveryComponent } from './Components/User/password-recovery/password-recovery.component';
+import { AuthGuard} from './Guard/auth.guard'
 
 const routes: Routes = [
   {path:"user/login", component: LoginComponent},
   {path:"user/register", component:RegisterComponent},
   {path:"user/passwordRecovery", component:PasswordRecoveryComponent},
-  {path:"user/users" , component: UsersComponent},
-  {path:"user/details/:id" , component: UserDetailsComponent},
-  {path:"user/create", component:UserCreateComponent},
-  {path:"user/myAccount", component:MyAccountComponent},
-  {path:"user/myAccount/details/:id", component:MyAccountDetailsComponent},
-  {path:"user/myAccount/createOper", component:MyAccountCreateOperComponent},
-  {path:"user/myAccount/createTransfer", component:MyAccountCreateTransferComponent},
-  {path:"account/accounts", component:AccountsComponent},
-  {path:"account/details/:id", component:AccountDetailsComponent},
-  {path:"operation/operations", component:OperationsComponent},
-  {path:"operation/details/:id", component:OperationDetailsComponent},
-  {path:"operation/create", component:OperationCreateComponent},
-  {path:"commission/commissions", component:CommissionsComponent},
-  {path:"commission/details/:id", component:CommissionDetailsComponent},
-  {path:"commission/create", component:CommissionCreateComponent},
-  {path:"accountCommission/accountCommissions", component:AccountCommissionsComponent},
-  {path:"accountCommission/create", component:AccountCommissionsCreateComponent},
+  {path:"user/users" , component: UsersComponent, canActivate: [AuthGuard]},
+  {path:"user/details/:id" , component: UserDetailsComponent, canActivate: [AuthGuard]},
+  {path:"user/create", component:UserCreateComponent, canActivate: [AuthGuard]},
+  {path:"user/myAccount", component:MyAccountComponent, canActivate: [AuthGuard]},
+  {path:"user/myAccount/details/:id", component:MyAccountDetailsComponent, canActivate: [AuthGuard]},
+  {path:"user/myAccount/createOper", component:MyAccountCreateOperComponent, canActivate: [AuthGuard]},
+  {path:"user/myAccount/createTransfer", component:MyAccountCreateTransferComponent, canActivate: [AuthGuard]},
+  {path:"account/accounts", component:AccountsComponent, canActivate: [AuthGuard]},
+  {path:"account/details/:id", component:AccountDetailsComponent, canActivate: [AuthGuard]},
+  {path:"operation/operations", component:OperationsComponent, canActivate: [AuthGuard]},
+  {path:"operation/details/:id", component:OperationDetailsComponent, canActivate: [AuthGuard]},
+  {path:"operation/create", component:OperationCreateComponent, canActivate: [AuthGuard]},
+  {path:"commission/commissions", component:CommissionsComponent, canActivate: [AuthGuard]},
+  {path:"commission/details/:id", component:CommissionDetailsComponent, canActivate: [AuthGuard]},
+  {path:"commission/create", component:CommissionCreateComponent, canActivate: [AuthGuard]},
+  {path:"accountCommission/accountCommissions", component:AccountCommissionsComponent, canActivate: [AuthGuard]},
+  {path:"accountCommission/create", component:AccountCommissionsCreateComponent, canActivate: [AuthGuard]},
   {path: '', redirectTo: "/user/login", pathMatch: 'full'}
   
 ];

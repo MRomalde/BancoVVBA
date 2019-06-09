@@ -20,7 +20,7 @@ export class OperationsComponent implements OnInit {
   operations:Operation[];
   accountId:number;
   p:number=1;
-  nameOfExcelFile:string;
+  nameOfExcelFile:string="Nuevo";
   constructor(private operService:OperationService,private toastr:ToastrService,
     private fb:FormBuilder,private accService:AccountService) { }
 

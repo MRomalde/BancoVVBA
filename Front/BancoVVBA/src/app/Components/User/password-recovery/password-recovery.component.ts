@@ -21,6 +21,9 @@ export class PasswordRecoveryComponent implements OnInit {
   });
 
   ngOnInit() {
+    if(localStorage.getItem("currentUser")!=null){
+      this.router.navigate(["/user/users"]);
+    }
   }
 
   SendEmail(){

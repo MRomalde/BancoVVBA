@@ -100,11 +100,13 @@ namespace Banco_VVBA.Controllers
                 {
                     client.Connect("smtp.gmail.com", 587, false);
                     //have to create a gmail with that 
-                    client.Authenticate("BancoVVBA@gmail.com", "Everis2019");
+                    client.Authenticate("BancoVVBA@gmail.com", "altair2019");
                     client.Send(message);
                     client.Disconnect(true);
 
                 }
+                user.ElementAt(0).Password = NewPassword;
+                await _userService.UpdateUser(user.ElementAt(0).UserId, user.ElementAt(0));
                 return true;
             }
             else
