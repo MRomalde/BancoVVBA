@@ -12,7 +12,7 @@ const httpOptions = {
 })
 export class OperationService {
 
-  Uri="https://localhost:5001/api/operation";
+  Uri="https://bancovvba.azurewebsites.net/api/operation";
   constructor(private http: HttpClient) { }
 
   //Get all the operations

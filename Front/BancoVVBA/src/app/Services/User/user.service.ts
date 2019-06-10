@@ -13,7 +13,7 @@ const httpOptions = {
 })
 export class UserService {
 
-  Uri="https://localhost:5001/api/user";
+  Uri="https://bancovvba.azurewebsites.net/api/user";
   constructor(private http: HttpClient) { }
   //get all users
   GetAllUsers():Observable<any>{

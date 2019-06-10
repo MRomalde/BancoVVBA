@@ -14,7 +14,7 @@ const httpOptions = {
 })
 export class AccountService {
 
-  Uri="https://localhost:5001/api/account"
+  Uri="https://bancovvba.azurewebsites.net/api/account"
   constructor(private http:HttpClient) { }
 
   //get all accounts

@@ -13,7 +13,7 @@ const httpOptions = {
 export class CommissionService {
   
 
-  Uri="https://localhost:5001/api/commission";
+  Uri="https://bancovvba.azurewebsites.net/api/commission";
   constructor(private http: HttpClient) { }
 
   //get all the commissions
