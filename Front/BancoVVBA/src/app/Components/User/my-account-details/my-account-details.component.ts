@@ -49,6 +49,13 @@ export class MyAccountDetailsComponent implements OnInit {
     });
   }
 
+  UpdateOperation(){
+    this.operService.UpdateOperation(this.currentOperation[0]).subscribe(res=>{
+      this.formModel.reset();
+      this.toastr.success("Operacion editada con exito","Operacion editada");
+      this.router.navigate(["/user/myAccount"])
+    });  
+  }
   GetMaxAmountOfTheOperation(){
     this.accService.GetAccountByUserId(this.currentUser.userId).subscribe(res=>{
       this.acc=res[0];
