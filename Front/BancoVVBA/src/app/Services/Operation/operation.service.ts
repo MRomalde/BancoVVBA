@@ -27,6 +27,10 @@ export class OperationService {
   CreateOperation(oper:Operation):Observable<any>{
     return this.http.post(this.Uri + "/createOperation",oper).pipe(catchError(this.handleError<any>('CreateOper',[])));
   }
+  //Create a transfer
+  CreateTrasfer(oper:Operation):Observable<any>{
+    return this.http.post(this.Uri + "/createTransfer",oper).pipe(catchError(this.handleError<any>('CreateOper',[])));
+  }
   //delete an operation
   DeleteOper(operId:number):Observable<any>{
     return this.http.delete(this.Uri + "/delete/" + operId).pipe(catchError(this.handleError<any>('DeleteOper',[])));

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Commission } from 'src/app/Modelos/commission';
 import { CommissionService } from 'src/app/Services/Commission/commission.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { User } from 'src/app/Modelos/user';
 
 @Component({
   selector: 'app-commissions',
@@ -12,9 +14,13 @@ export class CommissionsComponent implements OnInit {
 
   commissions:Commission[];
   p:number=1;
-  constructor(private comService:CommissionService,private toastr:ToastrService) { }
+  currentUser:User=JSON.parse(localStorage.getItem("currentUser"));
+  constructor(private comService:CommissionService,private toastr:ToastrService,private router:Router) { }
 
   ngOnInit() {
+    if(this.currentUser.typeAccessId==2){
+      this.router.navigate(["/user/myAccount"]);
+    }
     this.GetCommissions();
   }
 

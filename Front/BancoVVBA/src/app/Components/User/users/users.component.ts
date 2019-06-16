@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/Services/User/user.service';
 import { User } from 'src/app/Modelos/user';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -14,9 +15,13 @@ export class UsersComponent implements OnInit {
   numberOfAdmins:Number;
   userToDelete:User;
   p:number=1;
-  constructor(private userService:UserService,private toastr:ToastrService) { }
+  currentUser:User=JSON.parse(localStorage.getItem("currentUser"));
+  constructor(private userService:UserService,private toastr:ToastrService,private route:Router) { }
 
   ngOnInit() {
+    if(this.currentUser.typeAccessId==2){
+      this.route.navigate(["/user/myAccount"]);
+    }
     this.GetUsers();
   }
 

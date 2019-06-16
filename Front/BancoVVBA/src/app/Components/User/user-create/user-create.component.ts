@@ -16,6 +16,7 @@ export class UserCreateComponent implements OnInit {
   surnameName:string;
   alias:string=null;
   aliasExistInDb:boolean=true;
+  currentUser:User=JSON.parse(localStorage.getItem("currentUser"));
   //it's a list because the back come as a list of an asynchronous operation
   userToCreateAccount:User[];
   typeUserSelected:string="0";
@@ -38,6 +39,9 @@ export class UserCreateComponent implements OnInit {
     UserTypeAccess:['Tipo de usuario',Validators.required]
     });
   ngOnInit() {
+    if(this.currentUser.typeAccessId==2){
+      this.router.navigate(["/user/myAccount"]);
+    }
     this.GetAllUserTypeAccess();
   }
 

@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
   surnameName:string;
   alias:string=null;
   aliasExistInDb:boolean=true;
+  currentUser:User=JSON.parse(localStorage.getItem("currentUser"));
   //it's a list because the back come as a list of an asynchronous operation
   userToCreateAccount:User[];
 
@@ -37,7 +38,11 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     if(localStorage.getItem("currentUser")!=null){
-      this.router.navigate(["/user/users"]);
+      if(this.currentUser.typeAccessId==1){
+        this.router.navigate(["/user/users"]);
+      }else{
+        this.router.navigate(["/user/myAccount"]);
+      }
     }
     this.formModel.reset();
   }

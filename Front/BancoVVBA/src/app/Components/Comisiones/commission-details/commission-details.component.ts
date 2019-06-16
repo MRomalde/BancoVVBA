@@ -4,6 +4,7 @@ import { CommissionService } from 'src/app/Services/Commission/commission.servic
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Commission } from 'src/app/Modelos/commission';
+import { User } from 'src/app/Modelos/user';
 
 @Component({
   selector: 'app-commission-details',
@@ -13,16 +14,20 @@ import { Commission } from 'src/app/Modelos/commission';
 export class CommissionDetailsComponent implements OnInit {
 
   commission:Commission[];
+  currentUser:User=JSON.parse(localStorage.getItem("currentUser"));
   constructor(private fb: FormBuilder, private comService:CommissionService,private router:Router,
     private toastr:ToastrService,private route: ActivatedRoute) { }
 
 
     formModel=this.fb.group({
       Description:['',[Validators.required]],
-      Price:['',[Validators.required,Validators.min(0.1)]],
+      Price:['',[Validators.required,Validators.min(0.1),Validators.max(100)]],
     });
 
   ngOnInit() {
+    if(this.currentUser.typeAccessId==2){
+      this.router.navigate(["/user/myAccount"]);
+    }
     this.GetCurrentCommission();
   }
 

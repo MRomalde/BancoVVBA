@@ -17,6 +17,7 @@
                 placeholder="Precio" formControlName="Price">
                 <label class="text-danger" *ngIf="formModel.get('Price').touched && formModel.get('Price').errors?.required">El campo precio es obligatorio</label>
                 <label class="text-danger" *ngIf="formModel.get('Price').touched && formModel.get('Price').errors?.min">El precio minimo es 0.1</label>
+                <label class="text-danger" *ngIf="formModel.get('Price').touched && formModel.get('Price').errors?.max">El precio maximo es 100</label>
               </div>
               <div class="form-group">
               <button type="submit" class="btn btn-lg btn-block" [disabled]="!formModel.valid">
@@ -24,7 +25,7 @@
               </button>
               </div>
               <div class="form-group">
-                <button routerLink="/commission/commissions" class="btn black btn-lg btn-block"><i class="material-icons left">view_list</i>usuarios</button>              </div>  
+                <button routerLink="/commission/commissions" class="btn black btn-lg btn-block"><i class="material-icons left">view_list</i>Comisiones</button>              </div>  
           </form>
         </div>
       </div>

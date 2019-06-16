@@ -46,6 +46,9 @@ export class UserDetailsComponent implements OnInit {
 
 
   ngOnInit() {
+    if(this.userAux.typeAccessId==2){
+      this.router.navigate(["/user/myAccount"]);
+    }
     this.canChangeUserTypeAccess==true;
     this.GetAllUserTypeAccess();
     this.GetUserById();

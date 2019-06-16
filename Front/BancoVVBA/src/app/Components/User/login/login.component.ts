@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   loginModel:LoginModel;
   userLogin:User[];
   refresh:string;
+  currentUser:User=JSON.parse(localStorage.getItem("currentUser"));
   constructor(private fb:FormBuilder,private userService:UserService,private router:Router,
     private toastr:ToastrService) { }
 
@@ -26,8 +27,12 @@ export class LoginComponent implements OnInit {
     });
 
   ngOnInit() {
-    if(localStorage.getItem("currentUser")!=null){
-      this.router.navigate(["/user/users"]);
+    if(this.currentUser!=null||this.currentUser!=undefined){
+      if(this.currentUser.typeAccessId==1){
+        this.router.navigate(["/user/users"]);
+      }else{
+        this.router.navigate(["/user/myAccount"]);
+      }
     }
     this.formLogin.reset();  
   }

@@ -5,6 +5,7 @@ import { AccountService } from 'src/app/Services/Account/account.service';
 import { User } from 'src/app/Modelos/user';
 import { Operation } from 'src/app/Modelos/operation';
 import { Account } from 'src/app/Modelos/account';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-account',
@@ -18,7 +19,7 @@ export class MyAccountComponent implements OnInit {
   account:Account[];
 
   constructor(private operService:OperationService,private toastr:ToastrService,
-    private accService:AccountService) { }
+    private accService:AccountService,private router:Router) { }
 
   ngOnInit() {
     this.GetAllOperationsByUserId();
@@ -35,4 +36,8 @@ export class MyAccountComponent implements OnInit {
     });
   }
 
+  DeleteOper(oper:Operation){
+    this.operations=this.operations.filter(o=>o!==oper);
+    this.operService.DeleteOper(oper.operationId).subscribe(res=>this.toastr.info("Operacion borrada","Borrar"));
+  }
 }

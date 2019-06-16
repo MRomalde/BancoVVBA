@@ -7,6 +7,7 @@ import { OperationService } from 'src/app/Services/Operation/operation.service';
 import { AccountService } from 'src/app/Services/Account/account.service';
 import { Account } from 'src/app/Modelos/account';
 import { DatePipe } from '@angular/common';
+import { User } from 'src/app/Modelos/user';
 
 @Component({
   selector: 'app-operation-details',
@@ -20,6 +21,7 @@ export class OperationDetailsComponent implements OnInit {
   acc:Account;
   accounts:Account[];
   date:string;
+  currentUser:User=JSON.parse(localStorage.getItem("currentUser"));
 
   constructor(private fb: FormBuilder, private operService:OperationService,private router:Router,
     private toastr:ToastrService,private route: ActivatedRoute,private accService:AccountService,
@@ -34,6 +36,9 @@ export class OperationDetailsComponent implements OnInit {
   });
 
   ngOnInit() {   
+    if(this.currentUser.typeAccessId==2){
+      this.router.navigate(["/user/myAccount"]);
+    }
     this.accService.GetAllAccounts().subscribe(res=>{
       this.accounts=res;
     });

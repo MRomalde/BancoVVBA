@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/Services/Account/account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Account } from 'src/app/Modelos/account';
+import { User } from 'src/app/Modelos/user';
 
 @Component({
   selector: 'app-account-details',
@@ -13,6 +14,7 @@ import { Account } from 'src/app/Modelos/account';
 export class AccountDetailsComponent implements OnInit {
 
   account:Account[];
+  currentUser:User=JSON.parse(localStorage.getItem("currentUser"));
   constructor(private fb: FormBuilder, private accService:AccountService,private router:Router,
     private toastr:ToastrService,private route: ActivatedRoute,) { }
 
@@ -23,6 +25,9 @@ export class AccountDetailsComponent implements OnInit {
 
 
   ngOnInit() {
+    if(this.currentUser.typeAccessId==2){
+      this.router.navigate(["/user/myAccount"]);
+    }
     this.GetAccountById();
   }
 

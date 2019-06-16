@@ -7,6 +7,8 @@ import { AccountService } from 'src/app/Services/Account/account.service';
 import { Operation } from 'src/app/Modelos/operation';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
+import { User } from 'src/app/Modelos/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-operations',
@@ -20,9 +22,10 @@ export class OperationsComponent implements OnInit {
   operations:Operation[];
   accountId:number;
   p:number=1;
+  currentUser:User=JSON.parse(localStorage.getItem("currentUser"));
   nameOfExcelFile:string="Nuevo";
   constructor(private operService:OperationService,private toastr:ToastrService,
-    private fb:FormBuilder,private accService:AccountService) { }
+    private fb:FormBuilder,private accService:AccountService,private router:Router) { }
 
     formModel=this.fb.group({
       selectAccounts:['Todos']
@@ -30,6 +33,9 @@ export class OperationsComponent implements OnInit {
 
 
   ngOnInit() {
+    if(this.currentUser.typeAccessId==2){
+      this.router.navigate(["/user/myAccount"]);
+    }
     this.GetAllAccountsToLoadSelect();
     
     

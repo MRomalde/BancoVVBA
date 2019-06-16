@@ -13,6 +13,7 @@ import { User } from 'src/app/Modelos/user';
 export class PasswordRecoveryComponent implements OnInit {
 
   user:User[];
+  currentUser=JSON.parse(localStorage.getItem("currentUser"));
   constructor(private fb:FormBuilder,private userService:UserService,private router:Router,
     private toastr:ToastrService) { }
 
@@ -22,7 +23,11 @@ export class PasswordRecoveryComponent implements OnInit {
 
   ngOnInit() {
     if(localStorage.getItem("currentUser")!=null){
-      this.router.navigate(["/user/users"]);
+      if(this.currentUser.typeAccessId==1){
+        this.router.navigate(["/user/users"]);
+      }else{
+        this.router.navigate(["/user/myAccount"]);
+      }
     }
   }
 

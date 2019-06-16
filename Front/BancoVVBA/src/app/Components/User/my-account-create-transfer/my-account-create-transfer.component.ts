@@ -27,7 +27,7 @@ export class MyAccountCreateTransferComponent implements OnInit {
     formModel=this.fb.group({
       SelectAccounts:['Elige una cuenta',[Validators.required]],
       Date:['',[Validators.required]],
-      Amount:['',],
+      Amount:['',[Validators.required]],
       Message:['',],
     });
 
@@ -38,9 +38,9 @@ export class MyAccountCreateTransferComponent implements OnInit {
   CreateTransfer(){
     //create the operation to add
       this.operationToAdd=new Operation(this.formModel.value.Date,"Entrada", this.formModel.value.Message,
-        this.formModel.value.Amount, this.formModel.value.SelectAccounts);
-  
-      this.operService.CreateOperation(this.operationToAdd).subscribe(res=>{
+      this.formModel.value.Amount, this.formModel.value.SelectAccounts);
+    
+      this.operService.CreateTrasfer(this.operationToAdd).subscribe(res=>{
         
         }); 
         this.accService.GetAccountByUserId(this.currentUser.userId).subscribe(res=>{
@@ -50,7 +50,7 @@ export class MyAccountCreateTransferComponent implements OnInit {
             "Salida", this.formModel.value.Message,
             this.formModel.value.Amount,this.acc.accountId);
             
-          this.operService.CreateOperation(this.operationToAdd).subscribe(res=>{
+          this.operService.CreateTrasfer(this.operationToAdd).subscribe(res=>{
             this.formModel.reset();
             this.toastr.success("Transferencia creada con exito","Transferencia creada");
             this.router.navigate(["/user/myAccount"])
@@ -58,6 +58,9 @@ export class MyAccountCreateTransferComponent implements OnInit {
       });
     }
   GetAllAccountsExceptYours(){
+    if(this.currentUser==null || this.currentUser==undefined){
+      this.router.navigate(["/user/login"]);
+    }
     this.accService.GetAccountByUserId(this.currentUser.userId).subscribe(res=>{
       this.acc=res[0];
       this.accService.GetAllAccountsExceptYours(this.acc.accountId).subscribe(res=>{

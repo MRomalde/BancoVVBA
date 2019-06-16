@@ -27,7 +27,7 @@
               <label class="text-danger" *ngIf="formModel.get('Amount').touched && formModel.get('Amount').errors?.min">La cantidad no puede ser menor que 0.1</label>
             </div>
             <div class="form-group required">
-              <textarea formControlName="Message" disabled name="DependsOfSelectAccount" placeholder="Escribe tu mensaje" cols="50"></textarea>
+              <textarea formControlName="Message" disabled name="DependsOfSelectAccount" placeholder="Escribe tu mensaje" maxlength="100"></textarea>
             </div>
               <div class="form-group" >
               <button type="submit" class="btn btn-lg btn-block" [disabled]="!formModel.valid">

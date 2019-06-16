@@ -27,11 +27,12 @@ export class MyAccountCreateOperComponent implements OnInit {
     formModel=this.fb.group({
       SelectConcepto:['Elige un concepto',[Validators.required]],
       Date:['',[Validators.required]],
-      Amount:['',],
+      Amount:['',[Validators.required]],
       Message:['',],
     });
     
   ngOnInit() {
+
   }
 
   CreateOperation(){

@@ -6,6 +6,7 @@ import { Account } from 'src/app/Modelos/account';
 import { OperationService } from 'src/app/Services/Operation/operation.service';
 import { AccountService } from 'src/app/Services/Account/account.service';
 import { Operation } from 'src/app/Modelos/operation';
+import { User } from 'src/app/Modelos/user';
 
 @Component({
   selector: 'app-operation-create',
@@ -18,6 +19,7 @@ export class OperationCreateComponent implements OnInit {
   accounts:Account[];
   acc:Account;
   operationToAdd:Operation;
+  currentUser:User=JSON.parse(localStorage.getItem("currentUser"));
 
   constructor(private fb: FormBuilder, private operService:OperationService,private router:Router,
     private toastr:ToastrService,private route: ActivatedRoute,private accService:AccountService) { }
@@ -30,7 +32,9 @@ export class OperationCreateComponent implements OnInit {
       Message:['',],
     });
   ngOnInit() {
-    
+    if(this.currentUser.typeAccessId==2){
+      this.router.navigate(["/user/myAccount"]);
+    }
   }
 
   CreateOperation(){

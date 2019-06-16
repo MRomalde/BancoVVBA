@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/Services/Account/account.service';
 import { CommissionService } from 'src/app/Services/Commission/commission.service';
 import { AccountCommission } from 'src/app/Modelos/accountCommission';
+import { User } from 'src/app/Modelos/user';
 
 @Component({
   selector: 'app-account-commissions-create',
@@ -20,6 +21,7 @@ export class AccountCommissionsCreateComponent implements OnInit {
   accounts:Account[];
   commissions:Commission[];
   commissionAux:Commission[];
+  currentUser:User=JSON.parse(localStorage.getItem("currentUser"));
   constructor(private fb: FormBuilder, private accComService:AccountCommissionsService,private router:Router,
     private toastr:ToastrService,private route: ActivatedRoute,private accService:AccountService,private comService:CommissionService) { }
 
@@ -29,6 +31,9 @@ export class AccountCommissionsCreateComponent implements OnInit {
     } , {validators:this.CommissionAlreadyTaken.bind(this)});
 
   ngOnInit() {
+    if(this.currentUser.typeAccessId==2){
+      this.router.navigate(["/user/myAccount"]);
+    }
     this.GetAllAccountsAndCommissions();
   }
 

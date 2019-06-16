@@ -31,7 +31,7 @@ export class MyAccountDetailsComponent implements OnInit {
       formModel=this.fb.group({
         SelectConcepto:['',[Validators.required]],
         Date:['',[Validators.required]],
-        Amount:['',],
+        Amount:['',[Validators.required]],
         Message:['',],
       });
       

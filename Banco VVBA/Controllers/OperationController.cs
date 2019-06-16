@@ -51,10 +51,28 @@ namespace Banco_VVBA.Controllers
         }
 
         //Post:api/[controller]/createOperation
+        [HttpPost("createTransfer")]
+        public async Task<ActionResult> CreateTransfer(OperationsViewModel model)
+        {
+            if (model.Message == "") {
+                if (model.Concept == "Salida")
+                {
+                    model.Message = "Transferencia: retirada de dinero";
+                }
+                else
+                {
+                    model.Message = "Transferencia: Entrada de dinero";
+                }
+            }
+            var result = await _operService.CreateOperation(model);
+            return result;
+        }
+        //Post:api/[controller]/createOperation
         [HttpPost("createOperation")]
         public async Task<ActionResult> CreateOperation(OperationsViewModel model)
         {
-            if (model.Message == "") {
+            if (model.Message == "")
+            {
                 if (model.Concept == "Salida")
                 {
                     model.Message = "Retirada de dinero";
